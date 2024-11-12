@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>semesterProject</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+    <h1>home</h1>
+    <a href="/">home</a>
+    <form id="createPost" class="flex flex-col">
+        <!-- Title (Required) -->
+        <label for="title">Title (Required)</label>
+        <input type="text" id="title" name="title" placeholder="Campaign Title" required>
+
+        <!-- Description (Optional) -->
+        <label for="description">Description (Optional)</label>
+        <textarea id="description" name="description" placeholder="Campaign Description"></textarea>
+
+        <!-- Tags (Optional) -->
+        <label for="tags">Tags (Optional, comma-separated)</label>
+        <input type="text" id="tags" name="tags" placeholder="e.g., marketing, promotion">
+
+        <!-- Media URL (Optional) -->
+        <label for="mediaUrl">Media URL (Optional)</label>
+        <input type="url" id="mediaUrl" name="mediaUrl" placeholder="https://url.com/image.jpg">
+
+        <!-- Media Alt Text (Optional) -->
+        <label for="mediaAlt">Media Alt Text (Optional)</label>
+        <input type="text" id="mediaAlt" name="mediaAlt" placeholder="Description of the image">
+
+        <!-- End Date (Required) -->
+        <label for="endsAt">End Date (Required)</label>
+        <input type="datetime-local" id="endsAt" name="endsAt" required>
+
+        <button type="submit">Post</button>
+    </form>
+  </body>
+</html>

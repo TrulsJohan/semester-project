@@ -10,6 +10,8 @@ export const API_AUTH_REGISTER = `${API_AUTH}/register`;
 
 export const API_AUTH_KEY = `${API_AUTH}/create-api-key`;
 
+export const API_AUCTION_LISTINGS = `${API_BASE}/auction/listings`;
+
 /*
 const options = {
     headers: {

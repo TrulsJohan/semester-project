@@ -12,6 +12,7 @@ export default defineConfig({
         main: resolve(__dirname, "./index.html"),
         login: resolve(__dirname, "./auth/login.html"),
         register: resolve(__dirname, "./auth/register.html"),
+        createPost: resolve(__dirname, "./post/createPost.html"),
       },
     },
   },
