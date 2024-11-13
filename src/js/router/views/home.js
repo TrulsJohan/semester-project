@@ -8,9 +8,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
     try {
         const data = await getAllPosts(page, limit);
 
-        console.log("Posts on current page:", data.data);
-        console.log("Pagination meta:", data.meta);
-
         displayPaginatedPosts.currentPage = page;
         
         paginationContainer.innerHTML = data.data
