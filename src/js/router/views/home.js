@@ -1,4 +1,5 @@
 import { getAllPosts } from "../../api/post/read";
+import { authGuard } from "../../global/authGuard";
 
 const searchBar = document.getElementById("searchBar");
 const paginationContainer = document.getElementById("paginationContainer");
@@ -63,3 +64,4 @@ searchBar.addEventListener("input", (event) => {
 });
 
 displayPaginatedPosts(1);
+authGuard();
