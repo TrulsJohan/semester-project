@@ -12,7 +12,7 @@ export const API_AUTH_KEY = `${API_AUTH}/create-api-key`;
 
 export const API_AUCTION_LISTINGS = `${API_BASE}/auction/listings`;
 
-export const API_AUCTION_BID = `${API_AUCTION_LISTINGS}/<id>/bids`;
+export const API_AUCTION_PROFILE = `${API_BASE}/auction/profiles`;
 
 /*
 const options = {
