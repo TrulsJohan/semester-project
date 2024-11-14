@@ -15,6 +15,7 @@ export default defineConfig({
         register: resolve(__dirname, "./auth/register.html"),
         createPost: resolve(__dirname, "./post/createPost.html"),
         profile: resolve(__dirname, "./profile/profile.html"),
+        post: resolve(__dirname, "./post/post.html"),
       },
     },
   },

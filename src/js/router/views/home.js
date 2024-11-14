@@ -25,7 +25,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                 const tags = post.tags && post.tags.length > 0 ? `<p class="text-xs text-gray-500 mt-1">${post.tags.join(", ")}</p>` : "";
 
                 return `
-                    <div class="post">
+                    <div class="post" data-id="${post.id}">
                         <h1>${post.title}</h1>
                         <img src="${mediaUrl}" alt="${mediaAlt}" style="width: 100px; height: 100px;">
                         <p>${post.description}</p>
@@ -33,6 +33,14 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                     </div>
                 `;
             }).join("");
+
+            paginationContainer.querySelectorAll(".post").forEach((card) => {
+                card.addEventListener("click", () => {
+                    const postId = card.getAttribute("data-id");
+                    localStorage.setItem("selectedPostId", postId);
+                    window.location.href = "/post/post.html";
+                });
+            });
 
         if (!data.meta.isFirstPage) {
             const prevButton = document.createElement("button");
