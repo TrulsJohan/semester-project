@@ -20,9 +20,14 @@ export async function getAllPosts(page, limit) {
     }
 }
 
-export async function getPostId(postId) {
+export async function getPostId(postId, includeSeller = false, includeBids = false) {
     try {
-        const response = await fetch(`${API_AUCTION_LISTINGS}/${postId}`, {  //include seller and bids in url
+        const queryParams = new URLSearchParams({
+            _seller: includeSeller,
+            _bids: includeBids,
+          });
+          
+        const response = await fetch(`${API_AUCTION_LISTINGS}/${postId}?${queryParams}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         });
@@ -38,4 +43,4 @@ export async function getPostId(postId) {
         console.error('Error fetching posts:', error);
         throw error;
     }
-}
+}   
