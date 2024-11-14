@@ -1,28 +1,53 @@
 import { API_AUCTION_PROFILE } from "../constants";
 import { API_KEY } from "../constants";
 
-const name = localStorage.getItem(`user`);
+const headers = {
+    "Content-Type": "application/json",
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    "X-Noroff-API-Key": API_KEY,
+};
 
-export async function getProfile(){
-    try {
-        const response = await fetch(`${API_AUCTION_PROFILE}/${name}`, {
-          method: 'GET',
-          headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              "X-Noroff-API-Key": API_KEY,
-          },
-        });
+export async function getProfile(name, includeListings = false, includeWins = false) {
+  try {
+    const queryParams = new URLSearchParams({
+      _listings: includeListings,
+      _wins: includeWins,
+    });
+
+    const response = await fetch(`${API_AUCTION_PROFILE}/${name}?${queryParams}`, {
+      method: 'GET',
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    throw error;
+  }
+}
+
+export async function getProfileBids(name){
+  try {
+    const response = await fetch(`${API_AUCTION_PROFILE}/${name}/bids`, {
+      method: 'GET',
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
     
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-  
-        const data = await response.json();
-        return data;
-        
-      } catch (error) {
-        console.error('Error during registration:', error);
-        throw error;
-      }
+  } catch (error) {
+    console.error('Error during registration:', error);
+    throw error;
+  }
 }
