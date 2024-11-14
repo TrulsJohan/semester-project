@@ -7,6 +7,7 @@ async function renderProfile(){
     const profileData = await getProfile(name, true, true);
 
     const data = profileData.data;
+    console.log(data);
 
     const avatarUrl = data.avatar && data.avatar.url ? data.avatar.url : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
     const bannerUrl = data.banner && data.banner.url ? data.banner.url : "https://upload.wikimedia.org/wikipedia/commons/4/47/Blue_sky_banner.jpg";
@@ -33,6 +34,7 @@ async function renderProfile(){
 
 async function renderProfileBids(){
     const profileBids = await getProfileBids(name);
+    console.log(profileBids);
 }
 
 renderProfile();
