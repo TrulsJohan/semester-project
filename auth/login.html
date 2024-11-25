@@ -7,14 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="/src/app.js"></script>
   </head>
-  <body>
-    <h1>login</h1>
-    <a href="/">home</a>
-    <a href="register.html">register</a>
-    <form id="login">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+
+  <body class="bg-slate-50">
+    <div>
+      <div class="flex flex-col px-6 py-4 gap-8">
+        <header>
+          <nav>
+            <a href="/">
+              <img src="/assets/images/logo.svg" alt="logo"/>
+            </a>
+          </nav>
+        </header>
+
+        <div class="flex flex-col gap-8">
+          <h1 class="w-auto font-bold text-2xl">Login to Account</h1>
+          <p class="w-auto font-light text-xs">Login with social network</p>
+
+          <div class="flex row-span-1 gap-3">
+            <img src="/assets/images/google.svg" alt="google"/>
+            <img src="/assets/images/reddit.svg" alt="reddit"/>
+            <img src="/assets/images/linkedin.svg" alt="linkedin"/>
+          </div>
+
+          <div class="flex row-span-1 gap-2 justify-between align-middle">
+            <div class="w-auto h-px bg-black"></div>
+            <p class="w-full text-base font-light">Or</p>
+            <div class="w-full h-px bg-black"></div>
+          </div>
+
+          <form id="login">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <a href="register.html">register</a>
+      </div>
+    </div>
   </body>
 </html>
