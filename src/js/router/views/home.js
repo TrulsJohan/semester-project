@@ -8,6 +8,7 @@ let searchDebounceTimer;
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
     try {
         const data = await getAllPosts(page, limit);
+        console.log(data);
 
         displayPaginatedPosts.currentPage = page;
         

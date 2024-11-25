@@ -17,6 +17,8 @@ async function renderPostId() {
         const postIdSeller = postIdData.seller;
         const postIdBids = postIdData.bids;
         console.log(postIdBids);
+        console.log(postIdSeller);
+        console.log(postIdData);
 
         const postIdContainer = document.getElementById("postIdContainer");
         postIdContainer.innerHTML = "";
