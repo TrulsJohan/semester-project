@@ -22,18 +22,30 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
             })
             .map((post) => {
                 const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
-                const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt : "Post Image";
-                const tags = post.tags && post.tags.length > 0 ? `<p class="text-xs text-gray-500 mt-1">${post.tags.join(", ")}</p>` : "";
-
+                const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
+                const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
+                const endsAt = new Date(post.endsAt).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
+            
                 return `
-                    <div class="post" data-id="${post.id}">
-                        <h1>${post.title}</h1>
-                        <img src="${mediaUrl}" alt="${mediaAlt}" style="width: 100px; height: 100px;">
-                        <p>${post.description}</p>
-                        ${tags}
+                    <div data-id="${post.id}" class="post flex flex-col w-full gap-4 px-2 py-2 border border-slate-500 rounded-lg">
+                        <img src="${mediaUrl}" alt="${mediaAlt}" class="w-full h-[256px] object-cover rounded-lg border border-slate-500">
+                        <div class="flex flex-col gap-2">
+                            <h1 class="w-auto font-bold text-xl">${post.title}</h1>
+                            <div>
+                                <p class="font-medium text-base">Ends:
+                                    <span>${endsAt}</span>
+                                </p>
+                                <p class="font-medium text-base">Bids:
+                                    <span>${bidsCount}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                            Place Bid
+                        </button>
                     </div>
                 `;
-            }).join("");
+            }).join("");            
 
             paginationContainer.querySelectorAll(".post").forEach((card) => {
                 card.addEventListener("click", () => {
@@ -42,19 +54,35 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                     window.location.href = "/post/post.html";
                 });
             });
+        
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("flex","flex-row","w-full","justify-center","items-center");
+        paginationContainer.appendChild(buttonContainer);
 
         if (!data.meta.isFirstPage) {
             const prevButton = document.createElement("button");
-            prevButton.textContent = "Previous";
+            prevButton.classList.add("flex", "items-center", "gap-2", "p-2", "rounded", "bg-brand-300","text-slate-100");
+            const prevImage = document.createElement("img");
+            prevImage.src = "/assets/images/arrow-left.svg";
+            prevImage.alt = "Previous";
+            prevImage.classList.add("w-4", "h-4");
+            prevButton.appendChild(prevImage);
+            prevButton.appendChild(document.createTextNode("Previous"));
             prevButton.addEventListener("click", () => displayPaginatedPosts(page - 1, limit, searchQuery));
-            paginationContainer.appendChild(prevButton);
+            buttonContainer.appendChild(prevButton);
         }
 
         if (!data.meta.isLastPage) {
             const nextButton = document.createElement("button");
-            nextButton.textContent = "Next";
+            nextButton.classList.add("flex", "items-center", "gap-2", "p-2", "rounded", "bg-brand-300", "text-slate-100");
+            const nextImage = document.createElement("img");
+            nextImage.src = "/assets/images/arrow-right.svg";
+            nextImage.alt = "Next";
+            nextImage.classList.add("w-4", "h-4");
+            nextButton.appendChild(document.createTextNode("Next"));
+            nextButton.appendChild(nextImage);
             nextButton.addEventListener("click", () => displayPaginatedPosts(page + 1, limit, searchQuery));
-            paginationContainer.appendChild(nextButton);
+            buttonContainer.appendChild(nextButton);
         }
 
     } catch (error) {
