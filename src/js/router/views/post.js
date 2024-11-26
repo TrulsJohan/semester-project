@@ -1,8 +1,13 @@
 import { getPostId } from "../../api/post/read";
+import { onMakeBids } from "../../ui/post/createBids";
+
+const form = document.forms.bidForm;
+form.addEventListener("submit", onMakeBids);
+
+const postId = localStorage.getItem("selectedPostId");
 
 async function renderPostId() {
     try {
-        const postId = localStorage.getItem("selectedPostId");
         const data = await getPostId(postId, true, true);
         if (!data) {
             throw new Error(`Error: ${response.status}`);
@@ -11,6 +16,9 @@ async function renderPostId() {
         const postIdData = data.data;
         const postIdSeller = postIdData.seller;
         const postIdBids = postIdData.bids;
+        console.log(postIdBids);
+        console.log(postIdSeller);
+        console.log(postIdData);
 
         const postIdContainer = document.getElementById("postIdContainer");
         postIdContainer.innerHTML = "";
