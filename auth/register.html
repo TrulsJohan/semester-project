@@ -1,81 +1,74 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>semesterProject</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/src/app.js"></script>
-  </head>
-  <body class="bg-slate-50">
-      <div class="">
-        <div class="flex flex-col px-6 py-4 gap-8">
-            <header>
-                <nav>
-                    <a href="/">
-                        <img src="/assets/images/logo.svg" alt="logo"/>
-                    </a>
-                </nav>
-            </header>
-            <div class="flex flex-col gap-8 h-[488px] justify-center">
-                <div class="flex flex-col w-full justify-center items-center gap-2">
-                    <h1 class="w-auto font-bold text-2xl">Login to Account</h1>
-                    <p class="w-auto font-light text-xs">Login with social network</p>
-                </div>
-                <div class="flex flex-row justify-center items-center w-full gap-3">
-                    <img src="/assets/images/google.svg" alt="google"/>
-                    <img src="/assets/images/reddit.svg" alt="reddit"/>
-                    <img src="/assets/images/linkedin.svg" alt="linkedin"/>
-                </div>
-                <div class="flex flex-row justify-center items-center gap-2">
-                    <div class="w-full h-px bg-black"></div>
-                    <p class="text-base font-light">Or</p>
-                    <div class="w-full h-px bg-black"></div>
-                </div>
-                <form id="login" class="flex flex-col gap-6">
-                    <div class="flex flex-col w-full gap-4">
-                        <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
-                        type="email" id="email" placeholder="Email" required>
-                        <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
-                        type="password" id="password" placeholder="Password" required>
+    <head>
+        <meta charset="UTF-8" />
+        <title>semesterProject</title>
+        <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="module" src="/src/app.js"></script>
+    </head>
+
+    <body class="bg-slate-50">
+        <div class="">
+            <div class="flex flex-col px-6 py-4 gap-8">
+                <header>
+                    <nav>
+                        <a href="/">
+                            <img src="/assets/images/logo.svg" alt="logo"/>
+                        </a>
+                    </nav>
+                </header>
+                <div class="flex flex-col gap-8 h-[488px] justify-center">
+                    <div class="flex flex-col w-full justify-center items-center gap-2">
+                        <h1 class="w-auto font-bold text-2xl">Register new Account</h1>
+                        <p class="w-auto font-light text-xs">Register with social network</p>
                     </div>
-                    <button type="submit" class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
-                        Login
-                    </button>
-                </form>
+                    <div class="flex flex-row justify-center items-center w-full gap-3">
+                        <img src="/assets/images/google.svg" alt="google"/>
+                        <img src="/assets/images/reddit.svg" alt="reddit"/>
+                        <img src="/assets/images/linkedin.svg" alt="linkedin"/>
+                    </div>
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <div class="w-full h-px bg-black"></div>
+                        <p class="text-base font-light">Or</p>
+                        <div class="w-full h-px bg-black"></div>
+                    </div>
+                    <form id="register" class="flex flex-col gap-6">
+                        <div class="flex flex-col w-full gap-4">
+                            <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                            type="text" id="name" placeholder="Full Name" required maxlength="20" pattern="^[\w]+$" title="Please enter a username using only letters and numbers">
+                            <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                            type="email" id="email" placeholder="Email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Please enter a valid noroff.no or stud.noroff.no address">
+                            <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                            type="password" id="password" placeholder="Password" required minlength="8">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                            Register
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <div class="relative w-full h-[488px] bg-cover bg-center" style="background-image: url('/assets/images/luke-chesser-hQo6Uyo4nBg-unsplash.jpg');">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2 text-center text-white">
+                                <h1 class="font-bold text-2xl">Already Registered?</h1>
+                                <p class="font-light text-xs">
+                                    Login to account, and explore<br/>
+                                    items for auction.
+                                </p>
+                            </div>
+                            <a href="login.html">
+                                <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                                    Login
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>   
             </div>
         </div>
-
-      <div>
-          <div class="relative w-full h-[488px] bg-cover bg-center" style="background-image: url('/assets/images/luke-chesser-hQo6Uyo4nBg-unsplash.jpg');">
-              <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                  <div class="flex flex-col gap-4">
-                      <div class="flex flex-col gap-2 text-center text-white">
-                          <h1 class="font-bold text-2xl">New Here?</h1>
-                          <p class="font-light text-xs">
-                              Register new account, and explore<br/>
-                              items for auction.
-                          </p>
-                      </div>
-                      <a href="register.html">
-                          <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
-                              Register
-                          </button>
-                      </a>
-                  </div>
-              </div>
-          </div>   
-      </div>
-  </div>
-
-    <h1>register</h1>
-    <a href="/">home</a>
-    <a href="login.html">login</a>
-    <form id="register">
-        <input type="text" id="name" placeholder="Full Name" required maxlength="20" pattern="^[\w]+$" title="Please enter a username using only letters and numbers">
-        <input type="email" id="email" placeholder="Email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Please enter a valid noroff.no or stud.noroff.no address">
-        <input type="password" id="password" placeholder="Password" required minlength="8">
-        <button type="submit">Register</button>
-    </form>
-  </body>
+    </body>
 </html>
