@@ -1,8 +1,11 @@
 import { getAllPosts } from "../../api/post/read";
 import { logoutButton } from "../../global/logout";
+import { menuToggle } from "../../global/menu";
 
 const searchBar = document.getElementById("searchBar");
 const paginationContainer = document.getElementById("paginationContainer");
+const openMenu = document.getElementById("openMenu");
+const closeMenu = document.getElementById("closeMenu");
 let searchDebounceTimer;
 
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
@@ -99,6 +102,9 @@ searchBar.addEventListener("input", (event) => {
         displayPaginatedPosts(1, 10, query);
     }, 300);
 });
+
+openMenu.addEventListener("click", () => menuToggle("open"));
+closeMenu.addEventListener("click", () => menuToggle("close"));
 
 displayPaginatedPosts(1);
 logoutButton();
