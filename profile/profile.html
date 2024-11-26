@@ -1,17 +1,107 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>semesterProject</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-    <button id="loginButton">login</button>
-    <h1>profile</h1>
-    <a href="/">home</a>
+    <head>
+        <meta charset="UTF-8" />
+        <title>semesterProject</title>
+        <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="module" src="/src/app.js"></script>
+    </head>
 
-    <div id="profileContainer"></div>
-  </body>
+    <body class="bg-slate-50 relative">
+        <div id="menu" class="hidden absolute z-10 w-full bg-slate-50 flex-col px-6 py-8 gap-8 h-full">
+            <div class="flex flex-row w-full items-center gap-8">
+                <div id="closeMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                    <img src="/assets/images/open-menu.svg" alt="open-menu"/>
+                </div>
+                <img src="/assets/images/BidOn.svg" alt="logo">
+            </div>
+            <div class="w-full h-px bg-slate-500"></div>
+            <div class="flex flex-col gap-6">
+                <a href="/">
+                    <button class="text-xl">
+                        Auctions
+                    </button>
+                </a>
+                <a href="/profile/profile.html">
+                    <button class="text-xl">
+                        Profile
+                    </button>
+                </a>
+                <a href="/post/createPost.html">
+                    <button class="text-xl">
+                        New Post
+                    </button>
+                </a>
+                <a href="">
+                    <button class="text-xl">
+                        Help Center
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <header>
+            <nav class="flex flex-row w-full justify-between items-center border-b border-slate-500 px-6 py-4">
+                <div id="openMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                    <img src="/assets/images/menu.svg" alt="menu"/>
+                </div>
+                <div class="flex flex-row justify-center items-center gap-3">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <button id="loginButton">login</button>
+                        <div class="h-8 w-8 rounded-full bg-slate-600" id="profileImage"></div>
+                    </div>
+                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                        <img src="/assets/images/bell/bell.svg" alt="bell"/>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex flex-col py-6 gap-8">
+            <div class="flex flex-col w-full px-6 gap-6">
+                <h1 class="w-auto font-bold text-2xl">Auctions</h1>
+                <div class="flex flex-row w-full items-center gap-3">
+                    <button id="accountButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                        Account
+                    </button>
+                    <button id="listingsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                        Listings
+                    </button>
+                    <button id="bidsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                        Bids
+                    </button>
+                    <button id="winsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                        Wins
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div id="profileContainer"></div>
+                <div>
+                    <form name="updateProfile" class="space-y-6">
+                        <div>
+                            <label for="profileBanner" class="block text-sm font-medium text-gray-800">Profile Banner URL:</label>
+                            <input type="url" id="profileBanner" name="profileBanner" placeholder="Enter profile banner URL" required/>
+                        </div>
+                
+                        <div>
+                            <label for="profileImage" class="block text-sm font-medium text-gray-800">Profile Image URL:</label>
+                            <input type="url" id="profileImage" name="profileImage" placeholder="Enter profile image URL" required/>
+                        </div>
+                
+                        <div>
+                            <label for="profileBio" class="block text-sm font-medium text-gray-800">Bio:</label>
+                            <textarea id="profileBio" name="profileBio" placeholder="Enter your bio" required></textarea>
+                        </div>
+                
+                        <button type="submit" class="bg-brand-300">
+                            Update Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

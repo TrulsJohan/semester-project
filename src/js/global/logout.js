@@ -4,7 +4,7 @@ export function logoutButton(){
         loginButton.innerText = "logout"
         loginButton.addEventListener("click", ()=> {
             localStorage.clear();
-            window.location.reload();
+            window.location.href = "/";
         })
     } else {
         loginButton.addEventListener("click", ()=> {
