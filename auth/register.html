@@ -12,9 +12,9 @@
     <a href="/">home</a>
     <a href="login.html">login</a>
     <form id="register">
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
+        <input type="text" id="name" placeholder="Full Name" required maxlength="20" pattern="^[\w]+$" title="Please enter a username using only letters and numbers">
+        <input type="email" id="email" placeholder="Email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Please enter a valid noroff.no or stud.noroff.no address">
+        <input type="password" id="password" placeholder="Password" required minlength="8">
         <button type="submit">Register</button>
     </form>
   </body>
