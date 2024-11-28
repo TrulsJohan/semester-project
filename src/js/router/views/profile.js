@@ -24,8 +24,8 @@ async function renderProfile(){
     const avatarAlt = data.avatar?.alt || "Avatar Image";
     const bannerAlt = data.banner?.alt || "Banner Image";
 
-    const profileContainer = document.getElementById("profileContainer");
-    profileContainer.innerHTML = `
+    const renderContainer = document.getElementById("renderContainer");
+    renderContainer.innerHTML = `
         <div class="flex flex-col gap-8">
             <div class="profile-header relative flex flex-col items-center">
                 <img src="${bannerUrl}" alt="${bannerAlt}" class="profile-banner w-full h-[120px] object-cover bg-slate-500">
@@ -57,10 +57,10 @@ async function renderProfileBids(){
     console.log("bids", profileBids);
 }
 
-accountButton.addEventListener();
-listingsButton.addEventListener();
-bidsButton.addEventListener();
-winsButton.addEventListener();
+// accountButton.addEventListener();
+// listingsButton.addEventListener();
+// bidsButton.addEventListener();
+// winsButton.addEventListener();
 
 form.addEventListener("submit", onUpdateProfile);
 openMenu.addEventListener("click", () => menuToggle("open"));
