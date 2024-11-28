@@ -58,45 +58,52 @@
             </nav>
         </header>
 
-        <main class="flex flex-col py-6 gap-8">
-            <div class="flex flex-col w-full px-6 gap-6">
+        <main class="flex flex-col px-6 py-6 gap-8">
+            <div class="flex flex-col w-full gap-6">
                 <h1 class="w-auto font-bold text-2xl">Auctions</h1>
-                <div class="flex flex-row w-full items-center gap-3">
-                    <button id="accountButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                <div class="flex flex-row w-full items-center justify-between">
+                    <button id="accountButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
                         Account
                     </button>
-                    <button id="listingsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                    <button id="listingsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
                         Listings
                     </button>
-                    <button id="bidsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                    <button id="bidsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
                         Bids
                     </button>
-                    <button id="winsButton" class="border border-slate-500 rounded-lg px-2 py-1">
+                    <button id="winsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
                         Wins
                     </button>
                 </div>
             </div>
 
-            <div>
+            <div class="flex flex-col gap-8 rounded-lg border border-slate-500">
                 <div id="profileContainer"></div>
-                <div>
-                    <form name="updateProfile" class="space-y-6">
-                        <div>
-                            <label for="bannerUrl" class="block text-sm font-medium text-gray-800">Banner URL:</label>
-                            <input type="url" id="bannerUrl" name="bannerUrl" placeholder="Enter profile banner URL" required/>
+                <div class="px-4 pb-4">
+                    <form name="updateProfile" class="flex flex-col w-full gap-8">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="bannerUrl" class="block text-sm font-medium text-gray-800">Banner URL:</label>
+                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                                type="url" id="bannerUrl" name="bannerUrl" placeholder="Enter profile banner URL" required/>
+                            </div>
+                    
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="avatarUrl" class="block text-sm font-medium text-gray-800">Avatar URL:</label>
+                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                                type="url" id="avatarUrl" name="avatarUrl" placeholder="Enter profile image URL" required/>
+                            </div>
+                    
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="profileBio" class="block text-sm font-medium text-gray-800">Bio:</label>
+                                <textarea class="w-full h-20 border-solid border-black border rounded-lg px-3"
+                                id="profileBio" name="profileBio" placeholder="Enter your bio" required></textarea>
+                            </div>
                         </div>
-                
-                        <div>
-                            <label for="avatarUrl" class="block text-sm font-medium text-gray-800">Avatar URL:</label>
-                            <input type="url" id="avatarUrl" name="avatarUrl" placeholder="Enter profile image URL" required/>
-                        </div>
-                
-                        <div>
-                            <label for="profileBio" class="block text-sm font-medium text-gray-800">Bio:</label>
-                            <textarea id="profileBio" name="profileBio" placeholder="Enter your bio" required></textarea>
-                        </div>
-                
-                        <button type="submit" class="bg-brand-300">
+                        <button type="submit" class="bg-brand-300 text-slate-50 px-3 py-2 rounded-lg font-medium w-full">
                             Save Changes
                         </button>
                     </form>

@@ -6,6 +6,10 @@ import { onUpdateProfile } from "../../ui/profile/updateProfile";
 
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
+const accountButton = document.getElementById("accountButton");
+const listingsButton = document.getElementById("listingsButton");
+const bidsButton = document.getElementById("bidsButton");
+const winsButton = document.getElementById("winsButton");
 const name = localStorage.getItem(`user`);
 const form = document.forms.updateProfile;
 
@@ -52,6 +56,11 @@ async function renderProfileBids(){
     const profileBids = await getProfileBids(name);
     console.log("bids", profileBids);
 }
+
+accountButton.addEventListener();
+listingsButton.addEventListener();
+bidsButton.addEventListener();
+winsButton.addEventListener();
 
 form.addEventListener("submit", onUpdateProfile);
 openMenu.addEventListener("click", () => menuToggle("open"));
