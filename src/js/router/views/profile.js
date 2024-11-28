@@ -2,10 +2,12 @@ import { getProfile } from "../../api/profile/profile";
 import { getProfileBids } from "../../api/profile/profile";
 import { menuToggle } from "../../global/menu";
 import { logoutButton } from "../../global/logout";
+import { onUpdateProfile } from "../../ui/profile/updateProfile";
 
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
 const name = localStorage.getItem(`user`);
+const form = document.forms.updateProfile;
 
 async function renderProfile(){
     const profileData = await getProfile(name, true, true);
@@ -38,15 +40,20 @@ async function renderProfile(){
         </div>
     `;
 
+    document.getElementById("bannerUrl").value = data.banner.url
+    document.getElementById("avatarUrl").value = data.avatar.url
+    document.getElementById("profileBio").value = data.bio
+
     const profileListings = profileData.data.listings;
     const profileWins = profileData.data.wins;
 }
 
 async function renderProfileBids(){
     const profileBids = await getProfileBids(name);
-    console.log(profileBids);
+    console.log("bids", profileBids);
 }
 
+form.addEventListener("submit", onUpdateProfile);
 openMenu.addEventListener("click", () => menuToggle("open"));
 closeMenu.addEventListener("click", () => menuToggle("close"));
 
