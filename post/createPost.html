@@ -11,31 +11,34 @@
     <h1>home</h1>
     <a href="/">home</a>
     <form id="createPost" class="flex flex-col">
-        <!-- Title (Required) -->
-        <label for="title">Title (Required)</label>
-        <input type="text" id="title" name="title" placeholder="Campaign Title" required>
+      <!-- Title (Required) -->
+      <label for="title">Title (Required)</label>
+      <input type="text" id="title" name="title" placeholder="Campaign Title" required>
 
-        <!-- Description (Optional) -->
-        <label for="description">Description (Optional)</label>
-        <textarea id="description" name="description" placeholder="Campaign Description"></textarea>
+      <!-- Description (Optional) -->
+      <label for="description">Description (Optional)</label>
+      <textarea id="description" name="description" placeholder="Campaign Description"></textarea>
 
-        <!-- Tags (Optional) -->
-        <label for="tags">Tags (Optional, comma-separated)</label>
-        <input type="text" id="tags" name="tags" placeholder="e.g., marketing, promotion">
+      <!-- Tags (Optional) -->
+      <label for="tags">Tags (Optional, comma-separated)</label>
+      <input type="text" id="tags" name="tags" placeholder="e.g., marketing, promotion">
 
-        <!-- Media URL (Optional) -->
-        <label for="mediaUrl">Media URL (Optional)</label>
-        <input type="url" id="mediaUrl" name="mediaUrl" placeholder="https://url.com/image.jpg">
+      <!-- Media URLs (Optional) -->
+      <div id="mediaInputs">
+          <label for="mediaUrl0">Media URL (Optional)</label>
+          <input type="url" id="mediaUrl0" name="mediaUrl" placeholder="https://url.com/image.jpg">
 
-        <!-- Media Alt Text (Optional) -->
-        <label for="mediaAlt">Media Alt Text (Optional)</label>
-        <input type="text" id="mediaAlt" name="mediaAlt" placeholder="Description of the image">
+          <label for="mediaAlt0">Media Alt Text (Optional)</label>
+          <input type="text" id="mediaAlt0" name="mediaAlt" placeholder="Description of the image">
+      </div>
+      <button type="button" id="addMediaButton">Add Another Image</button>
+      <button type="button" id="removeMediaButton">Remove Last Image</button>
 
-        <!-- End Date (Required) -->
-        <label for="endsAt">End Date (Required)</label>
-        <input type="datetime-local" id="endsAt" name="endsAt" required>
+      <!-- End Date (Required) -->
+      <label for="endsAt">End Date (Required)</label>
+      <input type="datetime-local" id="endsAt" name="endsAt" required>
 
-        <button type="submit">Post</button>
-    </form>
+      <button type="submit">Post</button>
+  </form>
   </body>
 </html>
