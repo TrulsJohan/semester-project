@@ -23,4 +23,6 @@ export async function create(requestBody) {
       console.error('Error during registration:', error);
       throw error;
     }
-  }
+}
+
+
