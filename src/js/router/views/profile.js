@@ -17,7 +17,6 @@ async function renderProfile(){
     const profileData = await getProfile(name, true, true);
 
     const data = profileData.data;
-    console.log(data);
 
     const avatarUrl = data.avatar && data.avatar.url ? data.avatar.url : "/assets/images/cesar-rincon-XHVpWcr5grQ-unsplash.jpg";
     const bannerUrl = data.banner && data.banner.url ? data.banner.url : "/assets/images/luke-chesser-hQo6Uyo4nBg-unsplash.jpg";
@@ -47,20 +46,159 @@ async function renderProfile(){
     document.getElementById("bannerUrl").value = data.banner.url
     document.getElementById("avatarUrl").value = data.avatar.url
     document.getElementById("profileBio").value = data.bio
-
-    const profileListings = profileData.data.listings;
-    const profileWins = profileData.data.wins;
 }
 
 async function renderProfileBids(){
     const profileBids = await getProfileBids(name);
-    console.log("bids", profileBids);
+    if (profileBids.data.length === 0) {
+        renderContainer.innerHTML = "";
+        renderProfile();
+    } else {
+        renderContainer.innerHTML = profileBids.data
+        .map((post) => {
+            const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
+            const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
+            const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
+            const endsAt = new Date(post.endsAt).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
+            
+            return `
+                <div data-id="${post.id}" class="post flex flex-col w-full gap-4 px-2 py-2 border border-slate-500 rounded-lg">
+                    <img src="${mediaUrl}" alt="${mediaAlt}" class="w-full h-[256px] object-cover rounded-lg border border-slate-500">
+                    <div class="flex flex-col gap-2">
+                        <h1 class="w-auto font-bold text-xl">${post.title}</h1>
+                        <div>
+                            <p class="font-medium text-base">Ends:
+                                <span>${endsAt}</span>
+                            </p>
+                            <p class="font-medium text-base">Bids:
+                                <span>${bidsCount}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                        Place Bid
+                    </button>
+                </div>
+            `;
+            }).join("");            
+
+            renderContainer.querySelectorAll(".post").forEach((card) => {
+                card.addEventListener("click", () => {
+                    const postId = card.getAttribute("data-id");
+                    localStorage.setItem("selectedPostId", postId);
+                    window.location.href = "/post/post.html";
+                });
+            });
+    }   
 }
 
-// accountButton.addEventListener();
-// listingsButton.addEventListener();
-// bidsButton.addEventListener();
-// winsButton.addEventListener();
+async function renderProfileListings() {
+    const profileListings = await getProfile(name, true, true);
+    if (profileListings.data.listings.length === 0) {
+        renderContainer.innerHTML = "";
+        renderProfile();
+    } else {
+        renderContainer.innerHTML = profileListings.data.listings
+        .map((post) => {
+            const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
+            const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
+            const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
+            const endsAt = new Date(post.endsAt).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
+            
+            return `
+                <div data-id="${post.id}" class="post flex flex-col w-full gap-4 px-2 py-2 border border-slate-500 rounded-lg">
+                    <img src="${mediaUrl}" alt="${mediaAlt}" class="w-full h-[256px] object-cover rounded-lg border border-slate-500">
+                    <div class="flex flex-col gap-2">
+                        <h1 class="w-auto font-bold text-xl">${post.title}</h1>
+                        <div>
+                            <p class="font-medium text-base">Ends:
+                                <span>${endsAt}</span>
+                            </p>
+                            <p class="font-medium text-base">Bids:
+                                <span>${bidsCount}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                        Place Bid
+                    </button>
+                </div>
+            `;
+            }).join("");            
+
+            renderContainer.querySelectorAll(".post").forEach((card) => {
+                card.addEventListener("click", () => {
+                    const postId = card.getAttribute("data-id");
+                    localStorage.setItem("selectedPostId", postId);
+                    window.location.href = "/post/post.html";
+                });
+            });
+    }
+}
+
+async function renderProfileWins() {
+    const profileWins = await getProfile(name, true, true);
+    if (profileWins.data.wins.length === 0) {
+        renderContainer.innerHTML = "";
+        renderProfile();
+    } else {
+        renderContainer.innerHTML = profileWins.data.wins
+        .map((post) => {
+            const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
+            const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
+            const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
+            const endsAt = new Date(post.endsAt).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
+            
+            return `
+                <div data-id="${post.id}" class="post flex flex-col w-full gap-4 px-2 py-2 border border-slate-500 rounded-lg">
+                    <img src="${mediaUrl}" alt="${mediaAlt}" class="w-full h-[256px] object-cover rounded-lg border border-slate-500">
+                    <div class="flex flex-col gap-2">
+                        <h1 class="w-auto font-bold text-xl">${post.title}</h1>
+                        <div>
+                            <p class="font-medium text-base">Ends:
+                                <span>${endsAt}</span>
+                            </p>
+                            <p class="font-medium text-base">Bids:
+                                <span>${bidsCount}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-brand-300 h-10 rounded-lg text-lg text-white">
+                        Place Bid
+                    </button>
+                </div>
+            `;
+            }).join("");            
+
+            renderContainer.querySelectorAll(".post").forEach((card) => {
+                card.addEventListener("click", () => {
+                    const postId = card.getAttribute("data-id");
+                    localStorage.setItem("selectedPostId", postId);
+                    window.location.href = "/post/post.html";
+                });
+            });
+    }
+}
+
+accountButton.addEventListener("click", ()=> {
+    renderContainer.innerHTML = "";
+    renderProfile();
+});
+
+bidsButton.addEventListener("click", ()=> {
+    renderContainer.innerHTML = "";
+    renderProfileBids();
+});
+
+listingsButton.addEventListener("click", ()=> {
+    renderContainer.innerHTML = "";
+    renderProfileListings();
+});
+
+winsButton.addEventListener("click", ()=> {
+    renderContainer.innerHTML = "";
+    renderProfileWins()
+});
 
 form.addEventListener("submit", onUpdateProfile);
 openMenu.addEventListener("click", () => menuToggle("open"));

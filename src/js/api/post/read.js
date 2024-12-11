@@ -2,7 +2,7 @@ import { API_AUCTION_LISTINGS } from "../constants";
 
 export async function getAllPosts(page, limit) {
     try {
-        const response = await fetch(`${API_AUCTION_LISTINGS}?page=${page}&limit=${limit}`, {
+        const response = await fetch(`${API_AUCTION_LISTINGS}?_bids=true&_active=true&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         });
