@@ -1,8 +1,4 @@
 import { getPostId } from "../../api/post/read";
-import { onMakeBids } from "../../ui/post/createBids";
-
-const form = document.forms.bidForm;
-form.addEventListener("submit", onMakeBids);
 
 const postId = localStorage.getItem("selectedPostId");
 

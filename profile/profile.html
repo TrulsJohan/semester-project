@@ -1,17 +1,114 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>semesterProject</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-    <button id="loginButton">login</button>
-    <h1>profile</h1>
-    <a href="/">home</a>
+    <head>
+        <meta charset="UTF-8" />
+        <title>semesterProject</title>
+        <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="module" src="/src/app.js"></script>
+    </head>
 
-    <div id="profileContainer"></div>
-  </body>
+    <body class="bg-slate-50 relative">
+        <div id="menu" class="hidden absolute z-10 w-full bg-slate-50 flex-col px-6 py-8 gap-8 h-full">
+            <div class="flex flex-row w-full items-center gap-8">
+                <div id="closeMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                    <img src="/assets/images/open-menu.svg" alt="open-menu"/>
+                </div>
+                <img src="/assets/images/BidOn.svg" alt="logo">
+            </div>
+            <div class="w-full h-px bg-slate-500"></div>
+            <div class="flex flex-col gap-6">
+                <a href="/">
+                    <button class="text-xl">
+                        Auctions
+                    </button>
+                </a>
+                <a href="/profile/profile.html">
+                    <button class="text-xl">
+                        Profile
+                    </button>
+                </a>
+                <a href="/post/createPost.html">
+                    <button class="text-xl">
+                        New Post
+                    </button>
+                </a>
+                <a href="">
+                    <button class="text-xl">
+                        Help Center
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <header>
+            <nav class="flex flex-row w-full justify-between items-center border-b border-slate-500 px-6 py-4">
+                <div id="openMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                    <img src="/assets/images/menu.svg" alt="menu"/>
+                </div>
+                <div class="flex flex-row justify-center items-center gap-3">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <button id="loginButton">login</button>
+                        <div class="h-8 w-8 rounded-full bg-slate-600" id="profileImage"></div>
+                    </div>
+                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
+                        <img src="/assets/images/bell/bell.svg" alt="bell"/>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex flex-col px-6 py-6 gap-8">
+            <div class="flex flex-col w-full gap-6">
+                <h1 class="w-auto font-bold text-2xl">Auctions</h1>
+                <div class="flex flex-row w-full items-center justify-between">
+                    <button id="accountButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
+                        Account
+                    </button>
+                    <button id="listingsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
+                        Listings
+                    </button>
+                    <button id="bidsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
+                        Bids
+                    </button>
+                    <button id="winsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
+                        Wins
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-8 rounded-lg border border-slate-500">
+                <div id="renderContainer"></div>
+                <div class="px-4 pb-4">
+                    <form name="updateProfile" class="flex flex-col w-full gap-8">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="bannerUrl" class="block text-sm font-medium text-gray-800">Banner URL:</label>
+                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                                type="url" id="bannerUrl" name="bannerUrl" placeholder="Enter profile banner URL" required/>
+                            </div>
+                    
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="avatarUrl" class="block text-sm font-medium text-gray-800">Avatar URL:</label>
+                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
+                                type="url" id="avatarUrl" name="avatarUrl" placeholder="Enter profile image URL" required/>
+                            </div>
+                    
+                            <div class="flex flex-col gap-2">
+                                <label class="font-medium text-base w-full"
+                                for="profileBio" class="block text-sm font-medium text-gray-800">Bio:</label>
+                                <textarea class="w-full h-20 border-solid border-black border rounded-lg px-3"
+                                id="profileBio" name="profileBio" placeholder="Enter your bio" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-brand-300 text-slate-50 px-3 py-2 rounded-lg font-medium w-full">
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

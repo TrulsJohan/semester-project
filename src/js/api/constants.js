@@ -1,5 +1,5 @@
 export const API_KEY = "31ea6d50-4b21-49dd-8f59-63ae6776fc7a";
-
+ 
 export const API_BASE = "https://v2.api.noroff.dev";
 
 export const API_AUTH = `${API_BASE}/auth`;
