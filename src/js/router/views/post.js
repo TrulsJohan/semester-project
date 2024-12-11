@@ -1,5 +1,10 @@
 import { getPostId } from "../../api/post/read";
 import { onPlaceBid } from "../../ui/post/createBids";
+import { logoutButton } from "../../global/logout";
+import { menuToggle } from "../../global/menu";
+
+const openMenu = document.getElementById("openMenu");
+const closeMenu = document.getElementById("closeMenu");
 
 async function renderPostId() {
     try {
@@ -109,4 +114,8 @@ async function renderPostId() {
     }
 }
 
+openMenu.addEventListener("click", () => menuToggle("open"));
+closeMenu.addEventListener("click", () => menuToggle("close"));
+
+logoutButton();
 renderPostId();

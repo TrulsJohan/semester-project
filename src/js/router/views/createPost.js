@@ -1,8 +1,12 @@
 import { onCreatePost } from "../../ui/post/createPost.js";
+import { logoutButton } from "../../global/logout";
+import { menuToggle } from "../../global/menu";
 
 const form = document.forms.createPost;
 const addMediaButton = document.getElementById("addMediaButton");
 const removeMediaButton = document.getElementById("removeMediaButton");
+const openMenu = document.getElementById("openMenu");
+const closeMenu = document.getElementById("closeMenu");
 
 let mediaCount = 1; // Track the number of media inputs
 
@@ -53,3 +57,7 @@ removeMediaButton.addEventListener("click", () => {
 });
 
 form.addEventListener("submit", onCreatePost);
+openMenu.addEventListener("click", () => menuToggle("open"));
+closeMenu.addEventListener("click", () => menuToggle("close"));
+
+logoutButton();
