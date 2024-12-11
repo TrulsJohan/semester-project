@@ -1,9 +1,10 @@
 import { getPostId } from "../../api/post/read";
-
-const postId = localStorage.getItem("selectedPostId");
+import { onPlaceBid } from "../../ui/post/createBids";
 
 async function renderPostId() {
     try {
+        const postId = localStorage.getItem("selectedPostId");
+
         const data = await getPostId(postId, true, true);
         if (!data) {
             throw new Error(`Error: ${response.status}`);
@@ -30,7 +31,17 @@ async function renderPostId() {
                 <p>${postIdData.description}</p>
                 ${tags}
             </div>
+            <label for="bidsInput">Enter your bid amount:</label>
+            <input type="number" id="bidsInput" name="bidsInput" min="1" required>
+            <button id="submitButton">Place Bid</button>
         `;
+
+        const submitButton = document.getElementById("submitButton");
+        submitButton.addEventListener("click", ()=> {
+            const bidAmount = document.getElementById("bidsInput").value;
+            onPlaceBid(bidAmount);
+        });
+
     } catch (error) {
         console.error("Error fetching or displaying posts:", error);
     }

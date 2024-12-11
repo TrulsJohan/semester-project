@@ -21,6 +21,8 @@ export async function onCreatePost(){
         const data = await create(requestBody);
         if (!data){
             throw new Error(`Error: ${response.status}`);
+        } else {
+            console.log("successfully created a post");
         }
     } catch (error) {
         console.error('Error during registration:', error);
