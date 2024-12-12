@@ -96,6 +96,9 @@ async function renderPostId() {
     `;
     postIdContainer.appendChild(sellerSection);
 
+    // Find the highest bid
+    const highestBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : 0;
+
     if (loggedInUser) {
       if (seller.name === loggedInUser) {
         // Show Delete Button
@@ -119,6 +122,14 @@ async function renderPostId() {
           </ul>
         `;
         postIdContainer.appendChild(bidsSection);
+
+        // Display highest bid above the input
+        const highestBidSection = document.createElement("div");
+        highestBidSection.className = "mt-6";
+        highestBidSection.innerHTML = `
+          <p class="font-semibold text-lg">Highest Bid: $${highestBid}</p>
+        `;
+        postIdContainer.appendChild(highestBidSection);
 
         const bidInputSection = document.createElement("div");
         bidInputSection.className = "mt-6 space-y-4";
@@ -156,4 +167,3 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 logoutButton();
 renderPostId();
-
