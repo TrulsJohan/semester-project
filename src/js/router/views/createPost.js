@@ -8,7 +8,7 @@ const removeMediaButton = document.getElementById("removeMediaButton");
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
 
-let mediaCount = 1; // Track the number of media inputs
+let mediaCount = 1;
 
 addMediaButton.addEventListener("click", () => {
     const mediaInputs = document.getElementById("mediaInputs");

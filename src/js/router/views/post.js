@@ -2,116 +2,126 @@ import { getPostId } from "../../api/post/read";
 import { onPlaceBid } from "../../ui/post/createBids";
 import { logoutButton } from "../../global/logout";
 import { menuToggle } from "../../global/menu";
+import { onDeletePost } from "../../ui/post/deletePost.js";
 
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
 
 async function renderPostId() {
-    try {
-        const postId = localStorage.getItem("selectedPostId");
+  try {
+    const postId = localStorage.getItem("selectedPostId");
+    const loggedInUser = localStorage.getItem("user");
 
-        const data = await getPostId(postId, true, true);
-        if (!data) {
-            throw new Error(`Error: ${response.status}`);
-        }
+    const data = await getPostId(postId, true, true);
+    if (!data) throw new Error("Error fetching post data");
 
-        const postIdData = data.data;
-        const postIdContainer = document.getElementById("postIdContainer");
-        postIdContainer.innerHTML = "";
+    const { media, title, description, tags, seller, bids } = data.data;
+    const postIdContainer = document.getElementById("postIdContainer");
+    postIdContainer.innerHTML = "";
 
-        // Create carousel for multiple images
-        const mediaUrls = postIdData.media || [];
-        const carouselContainer = document.createElement("div");
-        carouselContainer.id = "carouselContainer";
-        carouselContainer.style.position = "relative";
-        carouselContainer.style.width = "200px";
-        carouselContainer.style.height = "200px";
-        carouselContainer.style.overflow = "hidden";
+    // Media Carousel
+    const carousel = document.createElement("div");
+    carousel.className = "relative w-full max-w-md mx-auto aspect-square overflow-hidden rounded-lg border bg-gray-200";
+    if (media.length > 0) {
+      let currentIndex = 0;
+      const img = document.createElement("img");
+      img.src = media[0].url;
+      img.alt = media[0].alt || "Post Image";
+      img.className = "w-full h-full object-cover";
+      carousel.appendChild(img);
 
-        if (mediaUrls.length > 0) {
-            const imgElement = document.createElement("img");
-            imgElement.src = mediaUrls[0].url;
-            imgElement.alt = mediaUrls[0].alt || "Post Image";
-            imgElement.style.width = "100%";
-            imgElement.style.height = "100%";
-            imgElement.style.objectFit = "cover";
-            imgElement.id = "carouselImage";
-            carouselContainer.appendChild(imgElement);
+      // Navigation Buttons
+      const prevButton = document.createElement("button");
+      prevButton.className = "absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full";
+      prevButton.textContent = "<";
+      prevButton.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + media.length) % media.length;
+        img.src = media[currentIndex].url;
+      });
+      carousel.appendChild(prevButton);
 
-            let currentIndex = 0;
-
-            // Previous Button
-            const prevButton = document.createElement("button");
-            prevButton.textContent = "Previous";
-            prevButton.style.position = "absolute";
-            prevButton.style.left = "10px";
-            prevButton.style.top = "50%";
-            prevButton.style.transform = "translateY(-50%)";
-            prevButton.style.zIndex = "10";
-            prevButton.addEventListener("click", () => {
-                currentIndex = (currentIndex - 1 + mediaUrls.length) % mediaUrls.length;
-                imgElement.src = mediaUrls[currentIndex].url;
-                imgElement.alt = mediaUrls[currentIndex].alt || "Post Image";
-            });
-            carouselContainer.appendChild(prevButton);
-
-            // Next Button
-            const nextButton = document.createElement("button");
-            nextButton.textContent = "Next";
-            nextButton.style.position = "absolute";
-            nextButton.style.right = "10px";
-            nextButton.style.top = "50%";
-            nextButton.style.transform = "translateY(-50%)";
-            nextButton.style.zIndex = "10";
-            nextButton.addEventListener("click", () => {
-                currentIndex = (currentIndex + 1) % mediaUrls.length;
-                imgElement.src = mediaUrls[currentIndex].url;
-                imgElement.alt = mediaUrls[currentIndex].alt || "Post Image";
-            });
-            carouselContainer.appendChild(nextButton);
-        } else {
-            const placeholderImage = document.createElement("img");
-            placeholderImage.src = "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
-            placeholderImage.alt = "No Image Available";
-            placeholderImage.style.width = "100%";
-            placeholderImage.style.height = "100%";
-            placeholderImage.style.objectFit = "cover";
-            carouselContainer.appendChild(placeholderImage);
-        }
-
-        postIdContainer.appendChild(carouselContainer);
-
-        // Render Post Details
-        const tags = postIdData.tags && postIdData.tags.length > 0 ? `<p class="text-xs text-gray-500 mt-1">${postIdData.tags.join(", ")}</p>` : "";
-
-        const postDetails = document.createElement("div");
-        postDetails.className = "post";
-        postDetails.dataset.id = postIdData.id;
-        postDetails.innerHTML = `
-            <h1>${postIdData.title}</h1>
-            <p>${postIdData.description}</p>
-            ${tags}
-        `;
-        postIdContainer.appendChild(postDetails);
-
-        // Bid Section
-        const bidSection = document.createElement("div");
-        bidSection.innerHTML = `
-            <label for="bidsInput">Enter your bid amount:</label>
-            <input type="number" id="bidsInput" name="bidsInput" min="1" required>
-            <button id="submitButton">Place Bid</button>
-        `;
-        postIdContainer.appendChild(bidSection);
-
-        const submitButton = document.getElementById("submitButton");
-        submitButton.addEventListener("click", () => {
-            const bidAmount = document.getElementById("bidsInput").value;
-            onPlaceBid(bidAmount);
-        });
-
-    } catch (error) {
-        console.error("Error fetching or displaying posts:", error);
+      const nextButton = document.createElement("button");
+      nextButton.className = "absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full";
+      nextButton.textContent = ">";
+      nextButton.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % media.length;
+        img.src = media[currentIndex].url;
+      });
+      carousel.appendChild(nextButton);
+    } else {
+      const placeholder = document.createElement("img");
+      placeholder.src = "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
+      placeholder.alt = "No Image Available";
+      placeholder.className = "w-full h-full object-cover";
+      carousel.appendChild(placeholder);
     }
+    postIdContainer.appendChild(carousel);
+
+    // Post Details
+    const postDetails = document.createElement("div");
+    postDetails.className = "space-y-4";
+    postDetails.innerHTML = `
+      <h1 class="text-2xl font-bold">${title}</h1>
+      <p class="text-gray-700">${description}</p>
+      ${tags?.length ? `<p class="text-sm text-gray-500">Tags: ${tags.join(", ")}</p>` : ""}
+    `;
+    postIdContainer.appendChild(postDetails);
+
+    // Seller Section
+    const sellerSection = document.createElement("details");
+    sellerSection.className = "border rounded-lg p-4";
+    sellerSection.innerHTML = `
+      <summary class="font-semibold text-lg cursor-pointer">Seller Info</summary>
+      <div class="mt-2 space-y-2">
+        <p><strong>Name:</strong> ${seller.name}</p>
+        <p><strong>Email:</strong> ${seller.email}</p>
+        <p><strong>Bio:</strong> ${seller.bio}</p>
+      </div>
+    `;
+    postIdContainer.appendChild(sellerSection);
+
+    if (loggedInUser) {
+      if (seller.name === loggedInUser) {
+        // Show Delete Button
+        const deleteButton = document.createElement("button");
+        deleteButton.id = "deletePostButton";
+        deleteButton.className = "w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600";
+        deleteButton.textContent = "Delete Post";
+        deleteButton.addEventListener("click", () => onDeletePost(postId));
+        postIdContainer.appendChild(deleteButton);
+      } else {
+        // Show Bids Section and Bid Input Section
+        const bidsSection = document.createElement("details");
+        bidsSection.className = "border rounded-lg p-4";
+        bidsSection.innerHTML = `
+          <summary class="font-semibold text-lg cursor-pointer">Bids (${bids.length})</summary>
+          <ul class="mt-2 space-y-2">
+            ${bids.map(bid => `<li class="flex justify-between">
+              <span>${bid.bidder.name}</span>
+              <span>$${bid.amount}</span>
+            </li>`).join("")}
+          </ul>
+        `;
+        postIdContainer.appendChild(bidsSection);
+
+        const bidInputSection = document.createElement("div");
+        bidInputSection.className = "mt-6 space-y-4";
+        bidInputSection.innerHTML = `
+          <label for="bidsInput" class="block text-sm font-medium text-gray-700">Enter your bid amount:</label>
+          <input type="number" id="bidsInput" name="bidsInput" min="1" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand-300 focus:border-brand-300 sm:text-sm">
+          <button id="submitButton" class="w-full py-2 bg-brand-300 text-white rounded-md hover:bg-brand-400">Place Bid</button>
+        `;
+        postIdContainer.appendChild(bidInputSection);
+
+        document.getElementById("submitButton").addEventListener("click", () => {
+          const bidAmount = document.getElementById("bidsInput").value;
+          onPlaceBid(bidAmount);
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching or displaying posts:", error);
+  }
 }
 
 openMenu.addEventListener("click", () => menuToggle("open"));
