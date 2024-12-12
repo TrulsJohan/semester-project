@@ -210,5 +210,4 @@ openMenu.addEventListener("click", () => menuToggle("open"));
 closeMenu.addEventListener("click", () => menuToggle("close"));
 
 renderProfile();
-renderProfileBids();
 logoutButton();
