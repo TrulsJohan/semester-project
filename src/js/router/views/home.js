@@ -14,7 +14,8 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
         console.log(data);
 
         displayPaginatedPosts.currentPage = page;
-        
+        paginationContainer.innerHTML = "";
+
         paginationContainer.innerHTML = data.data
             .filter(post => {
                 if (searchQuery) {
@@ -27,7 +28,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                 const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
                 const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
                 const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
-                const endsAt = new Date(post.endsAt).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
             
                 return `
                     <div data-id="${post.id}" class="post flex flex-col w-full gap-4 px-2 py-2 border border-slate-500 rounded-lg">
@@ -36,7 +36,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                             <h1 class="w-auto font-bold text-xl">${post.title}</h1>
                             <div>
                                 <p class="font-medium text-base">Ends:
-                                    <span>${endsAt}</span>
+                                    <span class="ends-at" data-ends-at="${post.endsAt}"></span>
                                 </p>
                                 <p class="font-medium text-base">Bids:
                                     <span>${bidsCount}</span>
@@ -48,23 +48,43 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                         </button>
                     </div>
                 `;
-            }).join("");            
+            }).join("");
 
-            paginationContainer.querySelectorAll(".post").forEach((card) => {
-                card.addEventListener("click", () => {
-                    const postId = card.getAttribute("data-id");
-                    localStorage.setItem("selectedPostId", postId);
-                    window.location.href = "/post/post.html";
-                });
+        // Set up countdown timers for each post
+        const countdownElements = document.querySelectorAll(".ends-at");
+        countdownElements.forEach(element => {
+            const endsAt = new Date(element.dataset.endsAt);
+            const updateCountdown = () => {
+                const timeLeft = endsAt - new Date();
+                if (timeLeft <= 0) {
+                    element.textContent = "Auction ended";
+                } else {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }
+            };
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+
+        paginationContainer.querySelectorAll(".post").forEach((card) => {
+            card.addEventListener("click", () => {
+                const postId = card.getAttribute("data-id");
+                localStorage.setItem("selectedPostId", postId);
+                window.location.href = "/post/post.html";
             });
-        
+        });
+
         const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("flex","flex-row","w-full","justify-center","items-center");
+        buttonContainer.classList.add("flex", "flex-row", "w-full", "justify-center", "items-center");
         paginationContainer.appendChild(buttonContainer);
 
         if (!data.meta.isFirstPage) {
             const prevButton = document.createElement("button");
-            prevButton.classList.add("flex", "items-center", "gap-2", "p-2", "rounded", "bg-brand-300","text-slate-100");
+            prevButton.classList.add("flex", "items-center", "gap-2", "p-2", "rounded", "bg-brand-300", "text-slate-100");
             const prevImage = document.createElement("img");
             prevImage.src = "/assets/images/arrow-left.svg";
             prevImage.alt = "Previous";
@@ -87,17 +107,16 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
             nextButton.addEventListener("click", () => displayPaginatedPosts(page + 1, limit, searchQuery));
             buttonContainer.appendChild(nextButton);
         }
-
     } catch (error) {
         console.error("Error fetching or displaying posts:", error);
     }
 }
 
-displayPaginatedPosts.currentPage = 1; 
+displayPaginatedPosts.currentPage = 1;
 
 searchBar.addEventListener("input", (event) => {
     const query = event.target.value;
-    clearTimeout(searchDebounceTimer); 
+    clearTimeout(searchDebounceTimer);
     searchDebounceTimer = setTimeout(() => {
         displayPaginatedPosts(1, 10, query);
     }, 300);
@@ -108,3 +127,4 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 displayPaginatedPosts(1);
 logoutButton();
+

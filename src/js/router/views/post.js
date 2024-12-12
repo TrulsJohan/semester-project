@@ -12,10 +12,13 @@ async function renderPostId() {
     const postId = localStorage.getItem("selectedPostId");
     const loggedInUser = localStorage.getItem("user");
 
+    if (!postId) throw new Error("No post ID found in localStorage.");
+
     const data = await getPostId(postId, true, true);
     if (!data) throw new Error("Error fetching post data");
+    console.log(data);
 
-    const { media, title, description, tags, seller, bids } = data.data;
+    const { media, title, description, tags, seller, bids, created, endsAt } = data.data;
     const postIdContainer = document.getElementById("postIdContainer");
     postIdContainer.innerHTML = "";
 
@@ -60,11 +63,24 @@ async function renderPostId() {
     // Post Details
     const postDetails = document.createElement("div");
     postDetails.className = "space-y-4";
+
+    const createdDate = new Date(created);
+    const endsAtDate = new Date(endsAt);
+
+    const countdownTimer = document.createElement("p");
+    countdownTimer.className = "text-sm text-gray-500";
+    countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
+    setInterval(() => {
+      countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
+    }, 1000);
+
     postDetails.innerHTML = `
       <h1 class="text-2xl font-bold">${title}</h1>
+      <p class="text-sm text-gray-500">Created on: ${createdDate.toLocaleDateString()} at ${createdDate.toLocaleTimeString()}</p>
       <p class="text-gray-700">${description}</p>
       ${tags?.length ? `<p class="text-sm text-gray-500">Tags: ${tags.join(", ")}</p>` : ""}
     `;
+    postDetails.appendChild(countdownTimer);
     postIdContainer.appendChild(postDetails);
 
     // Seller Section
@@ -124,8 +140,20 @@ async function renderPostId() {
   }
 }
 
+function getCountdown(endsAtDate) {
+  const now = new Date();
+  const timeLeft = endsAtDate - now;
+  if (timeLeft <= 0) return "Auction ended";
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
 openMenu.addEventListener("click", () => menuToggle("open"));
 closeMenu.addEventListener("click", () => menuToggle("close"));
 
 logoutButton();
 renderPostId();
+
