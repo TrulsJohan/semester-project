@@ -14,6 +14,11 @@ const name = localStorage.getItem(`user`);
 const form = document.forms.updateProfile;
 
 async function renderProfile(){
+    const loggedInUser = localStorage.getItem("token");
+    if(!loggedInUser){
+        window.location.href = "/auth/login.html";
+    }
+
     const profileData = await getProfile(name, true, true);
 
     const data = profileData.data;
