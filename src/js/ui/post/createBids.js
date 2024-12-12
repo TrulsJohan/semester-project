@@ -2,6 +2,7 @@ import { placeBid } from "../../api/post/createBids";
 
 export async function onPlaceBid(bidAmount) {
     try {
+        // Validate bid amount
         if (!bidAmount || isNaN(bidAmount) || bidAmount <= 0) {
             alert("Please enter a valid bid amount.");
             return;
@@ -9,13 +10,16 @@ export async function onPlaceBid(bidAmount) {
 
         console.log(`Bid placed: ${bidAmount}`);
 
-        const requestBody = { amount: Number(bidAmount) };
+        // Retrieve post ID
         const selectedPostId = localStorage.getItem("selectedPostId");
-
         if (!selectedPostId) {
             throw new Error("Selected Post ID is missing from localStorage.");
         }
 
+        // Construct request body
+        const requestBody = { amount: parseFloat(bidAmount) };
+
+        // Call API to place bid
         const response = await placeBid(requestBody, selectedPostId);
 
         if (!response) {
@@ -23,8 +27,9 @@ export async function onPlaceBid(bidAmount) {
         }
 
         console.log("Bid successfully placed:", response);
+        alert("Your bid was successfully placed!");
     } catch (error) {
-        console.error('Error during placing a bid:', error);
-        throw error;
+        console.error("Error during placing a bid:", error.message);
+        alert("Failed to place a bid. Please try again.");
     }
 }
