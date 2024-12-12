@@ -10,6 +10,13 @@ const closeMenu = document.getElementById("closeMenu");
 
 let mediaCount = 1;
 
+function loggedIn (){
+    const loggedInUser = localStorage.getItem("token");
+    if(!loggedInUser){
+        window.location.href = "/auth/login.html";
+    }
+}
+
 addMediaButton.addEventListener("click", () => {
     const mediaInputs = document.getElementById("mediaInputs");
 
@@ -61,3 +68,4 @@ openMenu.addEventListener("click", () => menuToggle("open"));
 closeMenu.addEventListener("click", () => menuToggle("close"));
 
 logoutButton();
+loggedIn();
