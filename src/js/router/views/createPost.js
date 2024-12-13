@@ -72,10 +72,7 @@ removeMediaButton.addEventListener("click", () => {
     }
 });
 
-form.addEventListener("submit", ()=> {
-    onCreatePost();
-    window.location.href = "/";
-});
+form.addEventListener("submit", onCreatePost);
 openMenu.addEventListener("click", () => menuToggle("open"));
 closeMenu.addEventListener("click", () => menuToggle("close"));
 
