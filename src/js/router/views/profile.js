@@ -35,7 +35,7 @@ async function renderProfile() {
 
     const renderContainer = document.getElementById("renderContainer");
     renderContainer.innerHTML = `
-        <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-8 pb-8 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
             <div class="profile-header relative flex flex-col items-center bg-slate-50">
                 <img src="${bannerUrl}" alt="${bannerAlt}" class="profile-banner w-full h-[120px] object-cover bg-slate-500 rounded-t-lg">
                 <img src="${avatarUrl}" alt="${avatarAlt}" class="profile-avatar w-24 h-24 rounded-full border-4 border-white absolute bottom-[-48px] bg-slate-900 shadow-lg">
@@ -49,7 +49,6 @@ async function renderProfile() {
                     <span class="font-medium text-slate-900">${data.credits}</span>
                 </p>
             </div>
-            <div class="h-px bg-slate-300 mx-6 my-4"></div>
         </div>
     `;
 
@@ -69,8 +68,6 @@ async function renderProfilePosts(type) {
     } else if (type === "listings" || type === "wins") {
         profileData = await getProfile(name, true, true); // Listings and Wins come from getProfile
     }
-
-    console.log(profileData);
 
     // Extracting the relevant data based on the type
     let posts = [];
