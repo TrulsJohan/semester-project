@@ -20,6 +20,7 @@ async function renderPostId() {
 
     const { media, title, description, tags, seller, bids, created, endsAt } = data.data;
     const postIdContainer = document.getElementById("postIdContainer");
+    const highestBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : 0;
     postIdContainer.innerHTML = "";
 
     // Media Carousel
@@ -60,32 +61,71 @@ async function renderPostId() {
     }
     postIdContainer.appendChild(carousel);
 
-    // Post Details
-    const postDetails = document.createElement("div");
-    postDetails.className = "space-y-4";
-
+    // Created At
     const createdDate = new Date(created);
-    const endsAtDate = new Date(endsAt);
+    const createdSection = document.createElement("p");
+    createdSection.className = "text-sm text-gray-500";
+    createdSection.textContent = `Created on: ${createdDate.toLocaleDateString()} at ${createdDate.toLocaleTimeString()}`;
+    postIdContainer.appendChild(createdSection);
 
+    // Title
+    const titleSection = document.createElement("h1");
+    titleSection.className = "text-2xl font-bold mt-2";
+    titleSection.textContent = title;
+    postIdContainer.appendChild(titleSection);
+
+    // Ends At
+    const endsAtDate = new Date(endsAt);
     const countdownTimer = document.createElement("p");
     countdownTimer.className = "text-sm text-gray-500";
     countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
     setInterval(() => {
       countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
     }, 1000);
+    postIdContainer.appendChild(countdownTimer);
 
-    postDetails.innerHTML = `
-      <h1 class="text-2xl font-bold">${title}</h1>
-      <p class="text-sm text-gray-500">Created on: ${createdDate.toLocaleDateString()} at ${createdDate.toLocaleTimeString()}</p>
-      <p class="text-gray-700">${description}</p>
-      ${tags?.length ? `<p class="text-sm text-gray-500">Tags: ${tags.join(", ")}</p>` : ""}
+    // Highest Bid
+    const highestBidSection = document.createElement("div");
+    highestBidSection.className = "mt-6";
+    highestBidSection.innerHTML = `
+      <p class="font-semibold text-lg">Highest Bid: $${highestBid}</p>
     `;
-    postDetails.appendChild(countdownTimer);
-    postIdContainer.appendChild(postDetails);
+    postIdContainer.appendChild(highestBidSection);
 
-    // Seller Section
+    // Bid Input and Bids Section (Visible only to logged-in users who are not the seller)
+    if (loggedInUser && seller.name !== loggedInUser) {
+      const bidInputSection = document.createElement("div");
+      bidInputSection.className = "mt-6 space-y-4";
+      bidInputSection.innerHTML = `
+        <label for="bidsInput" class="block text-sm font-medium text-gray-700">Enter your bid amount:</label>
+        <input type="number" id="bidsInput" name="bidsInput" min="1" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand-300 focus:border-brand-300 sm:text-sm">
+        <button id="submitButton" class="w-full py-2 bg-brand-300 text-white rounded-md hover:bg-brand-400">Place Bid</button>
+      `;
+      postIdContainer.appendChild(bidInputSection);
+
+      document.getElementById("submitButton").addEventListener("click", () => {
+        const bidAmount = document.getElementById("bidsInput").value;
+        onPlaceBid(bidAmount);
+      });
+    }
+
+    // Description
+    const descriptionSection = document.createElement("p");
+    descriptionSection.className = "text-gray-700 mt-4";
+    descriptionSection.textContent = description;
+    postIdContainer.appendChild(descriptionSection);
+
+    // Tags
+    if (tags?.length) {
+      const tagsSection = document.createElement("p");
+      tagsSection.className = "text-sm text-gray-500 mt-2";
+      tagsSection.textContent = `Tags: ${tags.join(", ")}`;
+      postIdContainer.appendChild(tagsSection);
+    }
+
+    // Seller Info
     const sellerSection = document.createElement("details");
-    sellerSection.className = "border rounded-lg p-4";
+    sellerSection.className = "border rounded-lg p-4 mt-4";
     sellerSection.innerHTML = `
       <summary class="font-semibold text-lg cursor-pointer">Seller Info</summary>
       <div class="mt-2 space-y-2">
@@ -96,56 +136,32 @@ async function renderPostId() {
     `;
     postIdContainer.appendChild(sellerSection);
 
-    // Find the highest bid
-    const highestBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : 0;
-
+    // Bids Section
     if (loggedInUser) {
-      if (seller.name === loggedInUser) {
-        // Show Delete Button
-        const deleteButton = document.createElement("button");
-        deleteButton.id = "deletePostButton";
-        deleteButton.className = "w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600";
-        deleteButton.textContent = "Delete Post";
-        deleteButton.addEventListener("click", () => onDeletePost(postId));
-        postIdContainer.appendChild(deleteButton);
-      } else {
-        // Show Bids Section and Bid Input Section
-        const bidsSection = document.createElement("details");
-        bidsSection.className = "border rounded-lg p-4";
-        bidsSection.innerHTML = `
-          <summary class="font-semibold text-lg cursor-pointer">Bids (${bids.length})</summary>
-          <ul class="mt-2 space-y-2">
-            ${bids.map(bid => `<li class="flex justify-between">
-              <span>${bid.bidder.name}</span>
-              <span>$${bid.amount}</span>
-            </li>`).join("")}
-          </ul>
-        `;
-        postIdContainer.appendChild(bidsSection);
-
-        // Display highest bid above the input
-        const highestBidSection = document.createElement("div");
-        highestBidSection.className = "mt-6";
-        highestBidSection.innerHTML = `
-          <p class="font-semibold text-lg">Highest Bid: $${highestBid}</p>
-        `;
-        postIdContainer.appendChild(highestBidSection);
-
-        const bidInputSection = document.createElement("div");
-        bidInputSection.className = "mt-6 space-y-4";
-        bidInputSection.innerHTML = `
-          <label for="bidsInput" class="block text-sm font-medium text-gray-700">Enter your bid amount:</label>
-          <input type="number" id="bidsInput" name="bidsInput" min="1" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand-300 focus:border-brand-300 sm:text-sm">
-          <button id="submitButton" class="w-full py-2 bg-brand-300 text-white rounded-md hover:bg-brand-400">Place Bid</button>
-        `;
-        postIdContainer.appendChild(bidInputSection);
-
-        document.getElementById("submitButton").addEventListener("click", () => {
-          const bidAmount = document.getElementById("bidsInput").value;
-          onPlaceBid(bidAmount);
-        });
-      }
+      const bidsSection = document.createElement("details");
+      bidsSection.className = "border rounded-lg p-4 mt-4";
+      bidsSection.innerHTML = `
+        <summary class="font-semibold text-lg cursor-pointer">Bids (${bids.length})</summary>
+        <ul class="mt-2 space-y-2">
+          ${bids.map(bid => `<li class="flex justify-between">
+            <span>${bid.bidder.name}</span>
+            <span>$${bid.amount}</span>
+          </li>`).join("")}
+        </ul>
+      `;
+      postIdContainer.appendChild(bidsSection);
     }
+
+    // Show Delete Button if logged-in user is the seller
+    if (loggedInUser && seller.name === loggedInUser) {
+      const deleteButton = document.createElement("button");
+      deleteButton.id = "deletePostButton";
+      deleteButton.className = "w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600";
+      deleteButton.textContent = "Delete Post";
+      deleteButton.addEventListener("click", () => onDeletePost(postId));
+      postIdContainer.appendChild(deleteButton);
+    }
+
   } catch (error) {
     console.error("Error fetching or displaying posts:", error);
   }
