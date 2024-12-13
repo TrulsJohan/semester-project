@@ -9,50 +9,42 @@
     </head>
 
     <body class="bg-slate-50 relative">
-        <div id="menu" class="hidden absolute z-10 w-full bg-slate-50 flex-col px-6 py-8 gap-8 h-full">
+        <div id="menu" class="hidden absolute z-10 w-full bg-slate-50 flex-col px-6 py-8 gap-8 h-full shadow-lg">
             <div class="flex flex-row w-full items-center gap-8">
                 <div id="closeMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
-                    <img src="/assets/images/open-menu.svg" alt="open-menu"/>
+                    <img src="/assets/images/open-menu.svg" alt="open-menu" />
                 </div>
-                <img src="assets/images/BidOn.svg" alt="logo">
+                <img src="/assets/images/BidOn.svg" alt="logo">
             </div>
-            <div class="w-full h-px bg-slate-500"></div>
+            <div class="w-full h-px bg-slate-300"></div>
             <div class="flex flex-col gap-6">
                 <a href="/">
-                    <button class="text-xl">
-                        Auctions
-                    </button>
+                    <button class="text-xl text-brand-700 hover:text-brand-900 transition">Auctions</button>
                 </a>
-                <a href="profile/profile.html">
-                    <button class="text-xl">
-                        Profile
-                    </button>
+                <a href="/profile/profile.html">
+                    <button class="text-xl text-brand-700 hover:text-brand-900 transition">Profile</button>
                 </a>
-                <a href="post/createPost.html">
-                    <button class="text-xl">
-                        New Post
-                    </button>
+                <a href="/post/createPost.html">
+                    <button class="text-xl text-brand-700 hover:text-brand-900 transition">New Post</button>
                 </a>
                 <a href="">
-                    <button class="text-xl">
-                        Help Center
-                    </button>
+                    <button class="text-xl text-brand-700 hover:text-brand-900 transition">Help Center</button>
                 </a>
             </div>
         </div>
 
         <header>
-            <nav class="flex flex-row w-full justify-between items-center border-b border-slate-500 px-6 py-4">
-                <div id="openMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
-                    <img src="/assets/images/menu.svg" alt="menu"/>
+            <nav class="flex flex-row w-full justify-between items-center border-b border-slate-300 px-6 py-4 bg-white shadow-sm">
+                <div id="openMenu" class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8 cursor-pointer">
+                    <img src="/assets/images/menu.svg" alt="menu" />
                 </div>
                 <div class="flex flex-row justify-center items-center gap-3">
                     <div class="flex flex-row justify-center items-center gap-2">
-                        <button id="loginButton">login</button>
-                        <div class="h-8 w-8 rounded-full bg-slate-600" id="profileImage"></div>
+                        <button id="loginButton" class="text-brand-700 font-semibold hover:underline">Login</button>
+                        <div class="h-8 w-8 rounded-full bg-slate-400" id="profileImage"></div>
                     </div>
-                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
-                        <img src="/assets/images/bell/bell.svg" alt="bell"/>
+                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8 cursor-pointer">
+                        <img src="/assets/images/bell/bell.svg" alt="bell" />
                     </div>
                 </div>
             </nav>
@@ -60,13 +52,15 @@
 
         <main class="flex flex-col py-6 gap-8">
             <div class="flex flex-col w-full px-6 gap-6">
-                <h1 class="w-auto font-bold text-2xl">Auctions</h1>
+                <h1 class="w-auto font-bold text-2xl text-slate-800">Auctions</h1>
                 <div class="flex flex-row w-full items-center gap-3">
-                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8">
-                        <img src="/assets/images/filter.svg" alt="filter"/>
+                    <div class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8 cursor-pointer">
+                        <img src="/assets/images/filter.svg" alt="filter" />
                     </div>
-                    <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
-                    type="text" id="searchBar" class="search-input" placeholder="Search for posts..." />
+                    <input
+                        class="w-full h-10 border border-slate-300 rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-brand-300"
+                        type="text" id="searchBar" placeholder="Search for posts..."
+                    />
                 </div>
             </div>
 
