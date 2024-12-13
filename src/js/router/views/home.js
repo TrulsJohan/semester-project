@@ -11,7 +11,7 @@ let searchDebounceTimer;
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
     try {
         const data = await getAllPosts(page, limit);
-
+        console.log(data);
         displayPaginatedPosts.currentPage = page;
         paginationContainer.innerHTML = "";
 
@@ -28,6 +28,12 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                 const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
                 const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
 
+                // Determine the highest bid amount
+                let highestBid = "No bids yet";
+                if (post.bids && post.bids.length > 0) {
+                    highestBid = Math.max(...post.bids.map(bid => bid.amount));
+                }
+
                 // Structure for individual posts
                 return `
                     <div data-id="${post.id}" 
@@ -43,6 +49,9 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                                 </p>
                                 <p class="text-sm font-medium">Bids:
                                     <span class="font-semibold">${bidsCount}</span>
+                                </p>
+                                <p class="text-sm font-medium">Current Bid:
+                                    <span class="font-semibold">${highestBid}</span>
                                 </p>
                             </div>
                         </div>

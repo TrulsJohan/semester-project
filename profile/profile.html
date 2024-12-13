@@ -50,57 +50,47 @@
             </nav>
         </header>
 
-        <main class="flex flex-col px-6 py-6 gap-8">
-            <div class="flex flex-col w-full gap-6">
-                <h1 class="w-auto font-bold text-2xl">Profile</h1>
-                <div class="flex flex-row w-full items-center justify-between">
-                    <button id="accountButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
-                        Account
-                    </button>
-                    <button id="listingsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
-                        Listings
-                    </button>
-                    <button id="bidsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
-                        Bids
-                    </button>
-                    <button id="winsButton" class="border border-slate-500 rounded-lg px-2 py-1 text-sm">
-                        Wins
-                    </button>
-                </div>
+        <!-- Main Content Area -->
+    <main class="flex flex-col px-6 py-6 gap-8">
+        <div class="flex flex-col w-full gap-6">
+            <h1 class="text-2xl font-bold text-slate-800">Profile</h1>
+            <!-- Add scrollable functionality here -->
+            <div class="flex flex-row w-full items-center justify-start gap-4 overflow-x-auto">
+                <button id="accountButton" class="border border-slate-500 rounded-lg px-4 py-2 text-sm hover:bg-slate-100 whitespace-nowrap">Account</button>
+                <button id="listingsButton" class="border border-slate-500 rounded-lg px-4 py-2 text-sm hover:bg-slate-100 whitespace-nowrap">Listings</button>
+                <button id="bidsButton" class="border border-slate-500 rounded-lg px-4 py-2 text-sm hover:bg-slate-100 whitespace-nowrap">Bids</button>
+                <button id="winsButton" class="border border-slate-500 rounded-lg px-4 py-2 text-sm hover:bg-slate-100 whitespace-nowrap">Wins</button>
             </div>
+        </div>
+        
 
-            <div class="flex flex-col gap-8 rounded-lg border border-slate-500">
-                <div id="renderContainer"></div>
-                <div class="px-4 pb-4">
-                    <form name="updateProfile" class="flex flex-col w-full gap-8">
-                        <div class="flex flex-col gap-4">
-                            <div class="flex flex-col gap-2">
-                                <label class="font-medium text-base w-full"
-                                for="bannerUrl" class="block text-sm font-medium text-gray-800">Banner URL:</label>
-                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
-                                type="url" id="bannerUrl" name="bannerUrl" placeholder="Enter profile banner URL" required/>
-                            </div>
-                    
-                            <div class="flex flex-col gap-2">
-                                <label class="font-medium text-base w-full"
-                                for="avatarUrl" class="block text-sm font-medium text-gray-800">Avatar URL:</label>
-                                <input class="w-full h-10 border-solid border-black border rounded-lg px-3"
-                                type="url" id="avatarUrl" name="avatarUrl" placeholder="Enter profile image URL" required/>
-                            </div>
-                    
-                            <div class="flex flex-col gap-2">
-                                <label class="font-medium text-base w-full"
-                                for="profileBio" class="block text-sm font-medium text-gray-800">Bio:</label>
-                                <textarea class="w-full h-20 border-solid border-black border rounded-lg px-3"
-                                id="profileBio" name="profileBio" placeholder="Enter your bio" required></textarea>
-                            </div>
+        <!-- Profile Form Section -->
+        <div class="flex flex-col gap-8">
+            <div id="renderContainer"></div>
+            <div id="formContainer" class="px-4 pb-4">
+                <form name="updateProfile" class="flex flex-col w-full gap-8">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="bannerUrl" class="font-medium text-base text-slate-700">Banner URL:</label>
+                            <input type="url" id="bannerUrl" name="bannerUrl" class="w-full h-10 border border-slate-300 rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-brand-300" placeholder="Enter profile banner URL" required />
                         </div>
-                        <button type="submit" class="bg-brand-300 text-slate-50 px-3 py-2 rounded-lg font-medium w-full">
-                            Save Changes
-                        </button>
-                    </form>
-                </div>
+        
+                        <div class="flex flex-col gap-2">
+                            <label for="avatarUrl" class="font-medium text-base text-slate-700">Avatar URL:</label>
+                            <input type="url" id="avatarUrl" name="avatarUrl" class="w-full h-10 border border-slate-300 rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-brand-300" placeholder="Enter profile image URL" required />
+                        </div>
+        
+                        <div class="flex flex-col gap-2">
+                            <label for="profileBio" class="font-medium text-base text-slate-700">Bio:</label>
+                            <textarea id="profileBio" name="profileBio" class="w-full h-20 border border-slate-300 rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-brand-300" placeholder="Enter your bio" required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-brand-300 text-slate-50 px-4 py-2 rounded-lg font-medium w-full hover:bg-brand-400 transition duration-200">
+                        Save Changes
+                    </button>
+                </form>
             </div>
-        </main>
+        </div>        
+    </main>
     </body>
 </html>
