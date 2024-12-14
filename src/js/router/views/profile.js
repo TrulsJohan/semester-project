@@ -19,6 +19,7 @@ let countdownInterval;
 
 // Function to render the user's profile
 async function renderProfile() {
+    renderContainer.className = "";
     formContainer.classList.remove("hidden");
     const loggedInUser = localStorage.getItem("token");
     if (!loggedInUser) {
@@ -168,11 +169,13 @@ bidsButton.addEventListener("click", () => {
 
 listingsButton.addEventListener("click", () => {
     renderContainer.innerHTML = "";
+    renderContainer.className = "grid grid-cols-1 gap-4 px-6 lg:w-2/3 lg:mx-auto sm:grid-cols-2 lg:grid-cols-2";
     renderProfilePosts("listings");
 });
 
 winsButton.addEventListener("click", () => {
     renderContainer.innerHTML = "";
+    renderContainer.className = "grid grid-cols-1 gap-4 px-6 lg:w-2/3 lg:mx-auto sm:grid-cols-2 lg:grid-cols-2";
     renderProfilePosts("wins");
 });
 
