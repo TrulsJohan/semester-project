@@ -70,14 +70,14 @@ async function renderPostId() {
 
     // Title
     const titleSection = document.createElement("h1");
-    titleSection.className = "text-2xl font-bold mt-4 text-gray-800";
+    titleSection.className = "text-2xl font-bold text-gray-800";
     titleSection.textContent = title;
     postIdContainer.appendChild(titleSection);
 
     // Ends At
     const endsAtDate = new Date(endsAt);
     const countdownTimer = document.createElement("p");
-    countdownTimer.className = "text-sm text-gray-500 mt-2";
+    countdownTimer.className = "text-m font-bold text-gray-500 mt-2";
     countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
     setInterval(() => {
       countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
@@ -86,19 +86,18 @@ async function renderPostId() {
 
     // Highest Bid
     const highestBidSection = document.createElement("div");
-    highestBidSection.className = "mt-6";
+    highestBidSection.className = "mt-8 mb-4";
     highestBidSection.innerHTML = `
-      <p class="font-semibold text-lg text-gray-800">Highest Bid: $${highestBid}</p>
+      <p class="font-semibold text-lg text-gray-800">Current bid: $${highestBid}</p>
     `;
     postIdContainer.appendChild(highestBidSection);
 
     // Bid Input and Bids Section (Visible only to logged-in users who are not the seller)
     if (loggedInUser && seller.name !== loggedInUser) {
       const bidInputSection = document.createElement("div");
-      bidInputSection.className = "mt-6 space-y-4";
+      bidInputSection.className = "space-y-4 mb-10";
       bidInputSection.innerHTML = `
-        <label for="bidsInput" class="block text-sm font-medium text-gray-700">Enter your bid amount:</label>
-        <input type="number" id="bidsInput" name="bidsInput" min="1" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand-300 focus:border-brand-300 sm:text-sm p-2">
+        <input type="number" id="bidsInput" name="bidsInput" min="1" class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-brand-300 focus:border-brand-300 sm:text-sm p-2">
         <button id="submitButton" class="w-full py-2 bg-brand-300 text-white rounded-md hover:bg-brand-400 transition-colors">Place Bid</button>
       `;
       postIdContainer.appendChild(bidInputSection);
@@ -118,7 +117,7 @@ async function renderPostId() {
     // Tags
     if (tags?.length) {
       const tagsSection = document.createElement("p");
-      tagsSection.className = "text-sm text-gray-500 mt-2";
+      tagsSection.className = "text-sm text-gray-500 mt-2 mb-10";
       tagsSection.textContent = `Tags: ${tags.join(", ")}`;
       postIdContainer.appendChild(tagsSection);
     }
@@ -156,7 +155,7 @@ async function renderPostId() {
     if (loggedInUser && seller.name === loggedInUser) {
       const deleteButton = document.createElement("button");
       deleteButton.id = "deletePostButton";
-      deleteButton.className = "w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors";
+      deleteButton.className = "w-full mt-10 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors";
       deleteButton.textContent = "Delete Post";
       deleteButton.addEventListener("click", () => onDeletePost(postId));
       postIdContainer.appendChild(deleteButton);
