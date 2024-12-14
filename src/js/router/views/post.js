@@ -24,8 +24,10 @@ async function renderPostId() {
     postIdContainer.innerHTML = "";
 
     // Media Carousel
+    const carouselContainer = document.createElement("div");
+    carouselContainer.className = "flex justify-center align-middle w-full bg-slate-200 rounded-lg border bg-gray-400 shadow-md";
     const carousel = document.createElement("div");
-    carousel.className = "relative w-full max-w-md mx-auto aspect-square overflow-hidden rounded-lg border bg-gray-200 shadow-md";
+    carousel.className = "relative w-full max-w-md mx-auto aspect-square overflow-hidden rounded-lg border bg-gray-400 shadow-md sm:max-w-lg md:max-w-2xl";
     if (media.length > 0) {
       let currentIndex = 0;
       const img = document.createElement("img");
@@ -59,7 +61,8 @@ async function renderPostId() {
       placeholder.className = "w-full h-full object-cover";
       carousel.appendChild(placeholder);
     }
-    postIdContainer.appendChild(carousel);
+    carouselContainer.appendChild(carousel);
+    postIdContainer.appendChild(carouselContainer);
 
     // Created At
     const createdDate = new Date(created);
@@ -70,14 +73,14 @@ async function renderPostId() {
 
     // Title
     const titleSection = document.createElement("h1");
-    titleSection.className = "text-2xl font-bold text-gray-800";
+    titleSection.className = "text-2xl font-bold text-gray-800 mt-2 sm:text-3xl";
     titleSection.textContent = title;
     postIdContainer.appendChild(titleSection);
 
     // Ends At
     const endsAtDate = new Date(endsAt);
     const countdownTimer = document.createElement("p");
-    countdownTimer.className = "text-m font-bold text-gray-500 mt-2";
+    countdownTimer.className = "text-md font-bold text-gray-500 mt-2";
     countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
     setInterval(() => {
       countdownTimer.textContent = `Ends in: ${getCountdown(endsAtDate)}`;
@@ -110,7 +113,7 @@ async function renderPostId() {
 
     // Description
     const descriptionSection = document.createElement("p");
-    descriptionSection.className = "text-gray-700 mt-4 leading-relaxed";
+    descriptionSection.className = "text-gray-700 mt-4 leading-relaxed sm:text-lg";
     descriptionSection.textContent = description;
     postIdContainer.appendChild(descriptionSection);
 
@@ -124,7 +127,7 @@ async function renderPostId() {
 
     // Seller Info
     const sellerSection = document.createElement("details");
-    sellerSection.className = "border rounded-lg p-4 mt-4 bg-gray-50 shadow-md";
+    sellerSection.className = "border rounded-lg p-4 mt-4 bg-gray-50 shadow-md sm:p-6";
     sellerSection.innerHTML = `
       <summary class="font-semibold text-lg cursor-pointer text-gray-800">Seller Info</summary>
       <div class="mt-2 space-y-2">
@@ -138,7 +141,7 @@ async function renderPostId() {
     // Bids Section
     if (loggedInUser) {
       const bidsSection = document.createElement("details");
-      bidsSection.className = "border rounded-lg p-4 mt-4 bg-gray-50 shadow-md";
+      bidsSection.className = "border rounded-lg p-4 mt-4 bg-gray-50 shadow-md sm:p-6";
       bidsSection.innerHTML = `
         <summary class="font-semibold text-lg cursor-pointer text-gray-800">Bids (${bids.length})</summary>
         <ul class="mt-2 space-y-2">
