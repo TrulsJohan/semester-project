@@ -19,7 +19,6 @@ let countdownInterval;
 
 // Function to render the user's profile
 async function renderProfile() {
-    renderContainer.className = "";
     formContainer.classList.remove("hidden");
     const loggedInUser = localStorage.getItem("token");
     if (!loggedInUser) {
