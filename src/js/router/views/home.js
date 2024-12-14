@@ -37,7 +37,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                 // Structure for individual posts
                 return `
                     <div data-id="${post.id}" 
-                         class="post flex flex-col w-full gap-4 px-4 py-4 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
+                         class="post flex flex-col w-full overflow-hidden gap-4 px-4 py-4 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
                         <img src="${mediaUrl}" 
                              alt="${mediaAlt}" 
                              class="w-full h-64 object-cover rounded-lg border border-slate-200">
