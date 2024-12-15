@@ -1,6 +1,7 @@
 import { onCreatePost } from "../../ui/post/createPost.js";
 import { logoutButton } from "../../global/logout";
 import { menuToggle } from "../../global/menu";
+import { navProfileImage } from "../../global/nav";
 
 const form = document.forms.createPost;
 const addMediaButton = document.getElementById("addMediaButton");
@@ -78,3 +79,4 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 logoutButton();
 loggedIn();
+navProfileImage();
