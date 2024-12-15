@@ -1,7 +1,7 @@
-import { onCreatePost } from "../../ui/post/createPost.js";
-import { logoutButton } from "../../global/logout";
-import { menuToggle } from "../../global/menu";
-import { navProfileImage } from "../../global/nav";
+import { onCreatePost } from "../../ui/post/create.js";
+import { logoutButton } from "../../global/logout.js";
+import { menuToggle } from "../../global/menu.js";
+import { navProfileImage } from "../../global/nav.js";
 
 const form = document.forms.createPost;
 const addMediaButton = document.getElementById("addMediaButton");

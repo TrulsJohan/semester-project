@@ -1,4 +1,4 @@
-import { create } from "../../api/post/createPost";
+import { create } from "../../api/post/create";
 
 export async function onCreatePost(event){
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { login } from "../../api/auth/apiLogin.js";
+import { login } from "../../api/auth/login.js";
 
 export async function onLogin(event) {
     event.preventDefault();

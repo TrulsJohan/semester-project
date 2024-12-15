@@ -1,4 +1,4 @@
-import { register } from "../../api/auth/apiRegister.js";
+import { register } from "../../api/auth/register.js";
 
 export async function onRegister(event) {
     event.preventDefault();
