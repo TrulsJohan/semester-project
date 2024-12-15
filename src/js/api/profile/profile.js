@@ -34,7 +34,7 @@ export async function getProfile(name, includeListings = false, includeWins = fa
 
 export async function getProfileBids(name){
   try {
-    const response = await fetch(`${API_AUCTION_PROFILE}/${name}/bids`, {
+    const response = await fetch(`${API_AUCTION_PROFILE}/${name}/bids?_listings=true`, {
       method: 'GET',
       headers: headers,
     });
