@@ -3,6 +3,7 @@ import { onPlaceBid } from "../../ui/post/createBids";
 import { logoutButton } from "../../global/logout";
 import { menuToggle } from "../../global/menu";
 import { onDeletePost } from "../../ui/post/deletePost.js";
+import { navProfileImage } from "../../global/nav";
 
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
@@ -185,3 +186,4 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 logoutButton();
 renderPostId();
+navProfileImage();

@@ -1,6 +1,7 @@
 import { getAllPosts } from "../../api/post/read";
 import { logoutButton } from "../../global/logout";
 import { menuToggle } from "../../global/menu";
+import { navProfileImage } from "../../global/nav";
 
 const searchBar = document.getElementById("searchBar");
 const paginationContainer = document.getElementById("paginationContainer");
@@ -11,7 +12,6 @@ let searchDebounceTimer;
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
     try {
         const data = await getAllPosts(page, limit);
-        console.log(data);
         displayPaginatedPosts.currentPage = page;
         paginationContainer.innerHTML = "";
 
@@ -142,3 +142,4 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 displayPaginatedPosts(1);
 logoutButton();
+navProfileImage();

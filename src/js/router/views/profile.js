@@ -3,6 +3,7 @@ import { getProfileBids } from "../../api/profile/profile";
 import { menuToggle } from "../../global/menu";
 import { logoutButton } from "../../global/logout";
 import { onUpdateProfile } from "../../ui/profile/updateProfile";
+import { navProfileImage } from "../../global/nav";
 
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
@@ -210,3 +211,4 @@ closeMenu.addEventListener("click", () => menuToggle("close"));
 
 renderProfile();
 logoutButton();
+navProfileImage();
