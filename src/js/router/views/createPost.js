@@ -10,9 +10,9 @@ const closeMenu = document.getElementById("closeMenu");
 
 let mediaCount = 1;
 
-function loggedIn (){
+function loggedIn() {
     const loggedInUser = localStorage.getItem("token");
-    if(!loggedInUser){
+    if (!loggedInUser) {
         window.location.href = "/auth/login.html";
     }
 }
@@ -20,28 +20,37 @@ function loggedIn (){
 addMediaButton.addEventListener("click", () => {
     const mediaInputs = document.getElementById("mediaInputs");
 
+    // Media URL Label
     const mediaUrlLabel = document.createElement("label");
     mediaUrlLabel.setAttribute("for", `mediaUrl${mediaCount}`);
-    mediaUrlLabel.textContent = "Media URL (Optional)";
+    mediaUrlLabel.textContent = "Media URL";
+    mediaUrlLabel.className = "font-semibold text-lg text-gray-800";
     mediaInputs.appendChild(mediaUrlLabel);
 
+    // Media URL Input
     const mediaUrlInput = document.createElement("input");
     mediaUrlInput.setAttribute("type", "url");
     mediaUrlInput.setAttribute("id", `mediaUrl${mediaCount}`);
     mediaUrlInput.setAttribute("name", "mediaUrl");
+    mediaUrlInput.setAttribute("required", "true");
     mediaUrlInput.setAttribute("placeholder", "https://url.com/image.jpg");
+    mediaUrlInput.className = "border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300";
     mediaInputs.appendChild(mediaUrlInput);
 
+    // Media Alt Text Label
     const mediaAltLabel = document.createElement("label");
     mediaAltLabel.setAttribute("for", `mediaAlt${mediaCount}`);
-    mediaAltLabel.textContent = "Media Alt Text (Optional)";
+    mediaAltLabel.textContent = "Media Alt";
+    mediaAltLabel.className = "font-semibold text-lg text-gray-800"; // Matching the HTML
     mediaInputs.appendChild(mediaAltLabel);
 
+    // Media Alt Text Input
     const mediaAltInput = document.createElement("input");
     mediaAltInput.setAttribute("type", "text");
     mediaAltInput.setAttribute("id", `mediaAlt${mediaCount}`);
     mediaAltInput.setAttribute("name", "mediaAlt");
     mediaAltInput.setAttribute("placeholder", "Description of the image");
+    mediaAltInput.className = "border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"; // Matching the HTML
     mediaInputs.appendChild(mediaAltInput);
 
     mediaCount++;

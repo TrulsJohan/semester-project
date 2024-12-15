@@ -38,4 +38,5 @@ export async function onCreatePost(event){
         console.error('Error during registration:', error);
         throw error;
     }
+    window.location.href = "/";
 }
