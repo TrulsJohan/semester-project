@@ -1,8 +1,8 @@
 import { getPostId } from "../../api/post/read";
-import { onPlaceBid } from "../../ui/post/createBids";
+import { onPlaceBid } from "../../ui/post/bids.js";
 import { logoutButton } from "../../global/logout";
 import { menuToggle } from "../../global/menu";
-import { onDeletePost } from "../../ui/post/deletePost.js";
+import { onDeletePost } from "../../ui/post/delete.js";
 import { navProfileImage } from "../../global/nav";
 
 const openMenu = document.getElementById("openMenu");

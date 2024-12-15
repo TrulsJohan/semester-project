@@ -1,4 +1,4 @@
-import { placeBid } from "../../api/post/createBids";
+import { placeBid } from "../../api/post/bids";
 
 export async function onPlaceBid(bidAmount) {
     try {

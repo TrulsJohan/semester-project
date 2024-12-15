@@ -1,4 +1,4 @@
-import { deletePost } from "../../api/post/deletePost";
+import { deletePost } from "../../api/post/delete";
 
 export async function onDeletePost() {
 
