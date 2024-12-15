@@ -1,11 +1,7 @@
 import { API_AUCTION_PROFILE } from '../constants';
-import { API_KEY } from '../constants';
+import { loggedIn } from '../headers';
 
-const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-    'X-Noroff-API-Key': API_KEY,
-};
+const header = await loggedIn();
 
 export async function getProfile(
     name,
@@ -22,7 +18,7 @@ export async function getProfile(
             `${API_AUCTION_PROFILE}/${name}?${queryParams}`,
             {
                 method: 'GET',
-                headers: headers,
+                headers: header,
             }
         );
 
@@ -38,13 +34,14 @@ export async function getProfile(
     }
 }
 
-export async function getProfileBids(name) {
+export async function getProfileBids() {
     try {
+        const name = localStorage.getItem(`user`);
         const response = await fetch(
             `${API_AUCTION_PROFILE}/${name}/bids?_listings=true`,
             {
                 method: 'GET',
-                headers: headers,
+                headers: header,
             }
         );
 

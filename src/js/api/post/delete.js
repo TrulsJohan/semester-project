@@ -1,4 +1,5 @@
-import { API_KEY, API_AUCTION_LISTINGS } from '../constants';
+import { API_AUCTION_LISTINGS } from '../constants';
+import { loggedIn } from '../headers';
 
 export async function deletePost() {
     const postId = localStorage.getItem(`selectedPostId`);
@@ -9,13 +10,10 @@ export async function deletePost() {
     }
 
     try {
+        const header = await loggedIn();
         const response = await fetch(`${API_AUCTION_LISTINGS}/${postId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                'X-Noroff-API-Key': API_KEY,
-            },
+            headers: header,
         });
 
         return response;

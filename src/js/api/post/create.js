@@ -1,14 +1,12 @@
 import { API_AUCTION_LISTINGS, API_KEY } from '../constants';
+import { loggedIn } from '../headers';
 
 export async function create(requestBody) {
     try {
+        const header = await loggedIn();
         const response = await fetch(API_AUCTION_LISTINGS, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                'X-Noroff-API-Key': API_KEY,
-            },
+            headers: header,
             body: JSON.stringify(requestBody),
         });
 

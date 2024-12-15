@@ -1,5 +1,5 @@
-import { API_KEY } from '../constants';
 import { API_AUCTION_PROFILE } from '../constants';
+import { loggedIn } from '../headers';
 
 export async function updateProfile() {
     event.preventDefault();
@@ -20,13 +20,10 @@ export async function updateProfile() {
     }
 
     try {
+        const header = await loggedIn();
         const response = await fetch(`${API_AUCTION_PROFILE}/${name}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                'X-Noroff-API-Key': API_KEY,
-            },
+            headers: header,
             body: JSON.stringify({
                 bio: profileBio,
                 banner: { url: bannerUrl },
