@@ -1,37 +1,52 @@
-import { getAllPosts } from "../../api/post/read";
-import { logoutButton } from "../../global/logout";
-import { menuToggle } from "../../global/menu";
-import { navProfileImage } from "../../global/nav";
+import { getAllPosts } from '../../api/post/read';
+import { logoutButton } from '../../global/logout';
+import { menuToggle } from '../../global/menu';
+import { navProfileImage } from '../../global/nav';
 
-const searchBar = document.getElementById("searchBar");
-const paginationContainer = document.getElementById("paginationContainer");
-const openMenu = document.getElementById("openMenu");
-const closeMenu = document.getElementById("closeMenu");
+const searchBar = document.getElementById('searchBar');
+const paginationContainer = document.getElementById('paginationContainer');
+const openMenu = document.getElementById('openMenu');
+const closeMenu = document.getElementById('closeMenu');
 let searchDebounceTimer;
 
-async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
+async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
     try {
         const data = await getAllPosts(page, limit);
         displayPaginatedPosts.currentPage = page;
-        paginationContainer.innerHTML = "";
+        paginationContainer.innerHTML = '';
 
         paginationContainer.innerHTML = data.data
-            .filter(post => {
+            .filter((post) => {
                 if (searchQuery) {
-                    return post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                           post.description.toLowerCase().includes(searchQuery.toLowerCase());
+                    return (
+                        post.title
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase()) ||
+                        post.description
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase())
+                    );
                 }
                 return true;
             })
             .map((post) => {
-                const mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : "https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg";
-                const mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || "Post Image" : "No Image Available";
-                const bidsCount = post._count && post._count.bids ? post._count.bids : 0;
+                const mediaUrl =
+                    post.media && post.media.length > 0
+                        ? post.media[0].url
+                        : 'https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg';
+                const mediaAlt =
+                    post.media && post.media.length > 0
+                        ? post.media[0].alt || 'Post Image'
+                        : 'No Image Available';
+                const bidsCount =
+                    post._count && post._count.bids ? post._count.bids : 0;
 
                 // Determine the highest bid amount
-                let highestBid = "No bids yet";
+                let highestBid = 'No bids yet';
                 if (post.bids && post.bids.length > 0) {
-                    highestBid = Math.max(...post.bids.map(bid => bid.amount));
+                    highestBid = Math.max(
+                        ...post.bids.map((bid) => bid.amount)
+                    );
                 }
 
                 // Structure for individual posts
@@ -60,20 +75,25 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
                         </button>
                     </div>
                 `;
-            }).join("");
+            })
+            .join('');
 
         // Countdown logic for "Ends At"
-        const countdownElements = document.querySelectorAll(".ends-at");
-        countdownElements.forEach(element => {
+        const countdownElements = document.querySelectorAll('.ends-at');
+        countdownElements.forEach((element) => {
             const endsAt = new Date(element.dataset.endsAt);
             const updateCountdown = () => {
                 const timeLeft = endsAt - new Date();
                 if (timeLeft <= 0) {
-                    element.textContent = "Auction ended";
+                    element.textContent = 'Auction ended';
                 } else {
                     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const hours = Math.floor(
+                        (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                    );
+                    const minutes = Math.floor(
+                        (timeLeft % (1000 * 60 * 60)) / (1000 * 60)
+                    );
                     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                     element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
                 }
@@ -83,53 +103,89 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = "") {
         });
 
         // Adding click event listeners to each post card
-        const postElements = paginationContainer.querySelectorAll(".post");
+        const postElements = paginationContainer.querySelectorAll('.post');
         postElements.forEach((card) => {
-            card.addEventListener("click", () => {
-                const postId = card.getAttribute("data-id");
-                localStorage.setItem("selectedPostId", postId);
-                window.location.href = "/post/post.html";
+            card.addEventListener('click', () => {
+                const postId = card.getAttribute('data-id');
+                localStorage.setItem('selectedPostId', postId);
+                window.location.href = '/post/post.html';
             });
         });
 
         // Pagination controls
-        const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("flex", "flex-row", "w-full", "justify-center", "items-center", "gap-4", "mt-4");
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add(
+            'flex',
+            'flex-row',
+            'w-full',
+            'justify-center',
+            'items-center',
+            'gap-4',
+            'mt-4'
+        );
         paginationContainer.appendChild(buttonContainer);
 
         if (!data.meta.isFirstPage) {
-            const prevButton = document.createElement("button");
-            prevButton.classList.add("flex", "items-center", "gap-2", "px-4", "py-2", "rounded", "bg-brand-500", "text-white", "font-semibold", "hover:bg-brand-600", "transition");
-            const prevImage = document.createElement("img");
-            prevImage.src = "/assets/images/arrow-left.svg";
-            prevImage.alt = "Previous";
-            prevImage.classList.add("w-4", "h-4");
+            const prevButton = document.createElement('button');
+            prevButton.classList.add(
+                'flex',
+                'items-center',
+                'gap-2',
+                'px-4',
+                'py-2',
+                'rounded',
+                'bg-brand-500',
+                'text-white',
+                'font-semibold',
+                'hover:bg-brand-600',
+                'transition'
+            );
+            const prevImage = document.createElement('img');
+            prevImage.src = '/assets/images/arrow-left.svg';
+            prevImage.alt = 'Previous';
+            prevImage.classList.add('w-4', 'h-4');
             prevButton.appendChild(prevImage);
-            prevButton.appendChild(document.createTextNode("Previous"));
-            prevButton.addEventListener("click", () => displayPaginatedPosts(page - 1, limit, searchQuery));
+            prevButton.appendChild(document.createTextNode('Previous'));
+            prevButton.addEventListener('click', () =>
+                displayPaginatedPosts(page - 1, limit, searchQuery)
+            );
             buttonContainer.appendChild(prevButton);
         }
 
         if (!data.meta.isLastPage) {
-            const nextButton = document.createElement("button");
-            nextButton.classList.add("flex", "items-center", "gap-2", "px-4", "py-2", "rounded", "bg-brand-500", "text-white", "font-semibold", "hover:bg-brand-600", "transition");
-            const nextImage = document.createElement("img");
-            nextImage.src = "/assets/images/arrow-right.svg";
-            nextImage.alt = "Next";
-            nextImage.classList.add("w-4", "h-4");
-            nextButton.appendChild(document.createTextNode("Next"));
+            const nextButton = document.createElement('button');
+            nextButton.classList.add(
+                'flex',
+                'items-center',
+                'gap-2',
+                'px-4',
+                'py-2',
+                'rounded',
+                'bg-brand-500',
+                'text-white',
+                'font-semibold',
+                'hover:bg-brand-600',
+                'transition'
+            );
+            const nextImage = document.createElement('img');
+            nextImage.src = '/assets/images/arrow-right.svg';
+            nextImage.alt = 'Next';
+            nextImage.classList.add('w-4', 'h-4');
+            nextButton.appendChild(document.createTextNode('Next'));
             nextButton.appendChild(nextImage);
-            nextButton.addEventListener("click", () => displayPaginatedPosts(page + 1, limit, searchQuery));
+            nextButton.addEventListener('click', () =>
+                displayPaginatedPosts(page + 1, limit, searchQuery)
+            );
             buttonContainer.appendChild(nextButton);
         }
     } catch (error) {
-        console.error("Error fetching or displaying posts:", error);
+        console.error('Error fetching or displaying posts:', error);
     }
 }
 
 displayPaginatedPosts.currentPage = 1;
 
-searchBar.addEventListener("input", (event) => {
+searchBar.addEventListener('input', (event) => {
     const query = event.target.value;
     clearTimeout(searchDebounceTimer);
     searchDebounceTimer = setTimeout(() => {
@@ -137,8 +193,8 @@ searchBar.addEventListener("input", (event) => {
     }, 300);
 });
 
-openMenu.addEventListener("click", () => menuToggle("open"));
-closeMenu.addEventListener("click", () => menuToggle("close"));
+openMenu.addEventListener('click', () => menuToggle('open'));
+closeMenu.addEventListener('click', () => menuToggle('close'));
 
 displayPaginatedPosts(1);
 logoutButton();

@@ -1,15 +1,20 @@
-import { create } from "../../api/post/create";
+import { create } from '../../api/post/create';
 
-export async function onCreatePost(event){
+export async function onCreatePost(event) {
     event.preventDefault();
 
-    const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
-    const tags = document.getElementById("tags").value.split(',').map(tag => tag.trim());
-    const endsAt = new Date(document.getElementById("endsAt").value).toISOString();
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const tags = document
+        .getElementById('tags')
+        .value.split(',')
+        .map((tag) => tag.trim());
+    const endsAt = new Date(
+        document.getElementById('endsAt').value
+    ).toISOString();
 
-    const mediaInputs = document.querySelectorAll("[id^=mediaUrl]");
-    const mediaAltInputs = document.querySelectorAll("[id^=mediaAlt]");
+    const mediaInputs = document.querySelectorAll('[id^=mediaUrl]');
+    const mediaAltInputs = document.querySelectorAll('[id^=mediaAlt]');
 
     const media = [];
     mediaInputs.forEach((mediaInput, index) => {
@@ -25,18 +30,18 @@ export async function onCreatePost(event){
         description: description,
         tags: tags,
         media: media,
-        endsAt: endsAt
-    }
+        endsAt: endsAt,
+    };
     try {
         const data = await create(requestBody);
-        if (!data){
+        if (!data) {
             throw new Error(`Error: ${response.status}`);
         } else {
-            console.log("successfully created a post");
+            console.log('successfully created a post');
         }
     } catch (error) {
         console.error('Error during registration:', error);
         throw error;
     }
-    window.location.href = "/";
+    window.location.href = '/';
 }

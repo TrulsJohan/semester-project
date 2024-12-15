@@ -1,14 +1,14 @@
-export function logoutButton(){
-    const loginButton = document.getElementById("loginButton");
+export function logoutButton() {
+    const loginButton = document.getElementById('loginButton');
     if (localStorage.token) {
-        loginButton.innerText = "logout"
-        loginButton.addEventListener("click", ()=> {
+        loginButton.innerText = 'logout';
+        loginButton.addEventListener('click', () => {
             localStorage.clear();
-            window.location.href = "/";
-        })
+            window.location.href = '/';
+        });
     } else {
-        loginButton.addEventListener("click", ()=> {
-            window.location.href = "../../../auth/login.html";
-        })
+        loginButton.addEventListener('click', () => {
+            window.location.href = '../../../auth/login.html';
+        });
     }
 }
