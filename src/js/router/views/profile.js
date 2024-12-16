@@ -81,6 +81,7 @@ async function renderProfilePosts(type) {
 
     if (!Array.isArray(posts) || posts.length === 0) {
         renderContainer.innerHTML = '';
+        renderContainer.className = '';
         renderProfile();
         return;
     }
@@ -156,19 +157,19 @@ accountButton.addEventListener('click', () => {
 });
 
 bidsButton.addEventListener('click', () => {
-    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-2 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('bids');
 });
 
 listingsButton.addEventListener('click', () => {
-    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-2 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('listings');
 });
 
 winsButton.addEventListener('click', () => {
-    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-2 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('wins');
 });
