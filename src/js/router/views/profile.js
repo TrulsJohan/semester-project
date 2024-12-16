@@ -13,6 +13,7 @@ const listingsButton = document.getElementById('listingsButton');
 const bidsButton = document.getElementById('bidsButton');
 const winsButton = document.getElementById('winsButton');
 const formContainer = document.getElementById('formContainer');
+const renderContainer = document.getElementById('renderContainer');
 const name = localStorage.getItem('user');
 const form = document.forms.updateProfile;
 
@@ -31,7 +32,6 @@ async function renderProfile() {
     const avatarAlt = data.avatar?.alt || 'Avatar Image';
     const bannerAlt = data.banner?.alt || 'Banner Image';
 
-    const renderContainer = document.getElementById('renderContainer');
     renderContainer.innerHTML = `
         <div class="flex flex-col gap-8 pb-8 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
             <div class="profile-header relative flex flex-col items-center bg-slate-50">
