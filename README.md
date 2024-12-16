@@ -1,40 +1,23 @@
-Project Name
+#BidOn
 
-Description
-
+##Description
 A web application designed to facilitate the creation and management of listings, bidding, and account management. The application supports both registered and unregistered users, providing a seamless experience for browsing and interacting with listings.
 
-Features
-
-User Stories
-
-Registration: A user with a stud.noroff.no email may register.
-
-Login: A registered user may log in.
-
-Logout: A registered user may log out.
-
-Profile Management: A registered user may update their avatar and view their total credit.
-
-Listings:
-
-A registered user may create a listing with the following details:
-
-Title
-
-Deadline date
-
-Media gallery
-
-Description
-
-An unregistered user may search through existing listings.
-
-Bidding:
-
-A registered user may add a bid to another user’s listing.
-
-A registered user may view bids made on a listing.
+##Features
+- Registration: A user with a stud.noroff.no email may register.
+- Login: A registered user may log in.
+- Logout: A registered user may log out.
+- Profile Management: A registered user may update their avatar and view their total credit.
+- Listings:
+  - A registered user may create a listing with the following details:
+  - Title
+  - Deadline date
+  - Media gallery
+  - Description
+  - An unregistered user may search through existing listings.
+- Bidding:
+  - A registered user may add a bid to another user’s listing.
+  - A registered user may view bids made on a listing.
 
 Best Practices
 
