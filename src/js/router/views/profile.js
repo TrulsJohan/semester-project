@@ -85,7 +85,6 @@ async function renderProfilePosts(type) {
                 postTitle,
                 endDate,
                 bidAmount,
-                listingTitle,
                 bidsCount;
 
             if (type === 'bids') {
@@ -94,7 +93,6 @@ async function renderProfilePosts(type) {
                 postTitle = `Bid on: ${post.listing.title}`;
                 endDate = post.listing.endsAt;
                 bidAmount = post.amount;
-                listingTitle = post.listing.title;
             } else {
                 mediaUrl = post.media && post.media.length > 0 ? post.media[0].url : 'https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg';
                 mediaAlt = post.media && post.media.length > 0 ? post.media[0].alt || 'Post Image' : 'No Image Available';
@@ -131,6 +129,15 @@ async function renderProfilePosts(type) {
         })
         .join('');
 
+    const postsElements = renderContainer.querySelectorAll('.post');
+    postsElements.forEach((postElement) => {
+        postElement.addEventListener('click', (event) => {
+            const postId = event.currentTarget.getAttribute('data-id');
+            localStorage.setItem('selectedPostId', postId);
+            window.location.href = '/post/post.html';
+        });
+    });
+
     const countdownElements = renderContainer.querySelectorAll('.countdown');
     initializeCountdown(countdownElements);
 }
@@ -142,22 +149,19 @@ accountButton.addEventListener('click', () => {
 });
 
 bidsButton.addEventListener('click', () => {
-    renderContainer.className =
-        'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('bids');
 });
 
 listingsButton.addEventListener('click', () => {
-    renderContainer.className =
-        'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('listings');
 });
 
 winsButton.addEventListener('click', () => {
-    renderContainer.className =
-        'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
+    renderContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-6 xl:grid-cols-3 xl:gap-8 w-full max-w-screen-lg mx-auto';
     renderContainer.innerHTML = '';
     renderProfilePosts('wins');
 });
