@@ -21,7 +21,7 @@ async function renderProfile() {
     formContainer.classList.remove('hidden');
     const loggedInUser = localStorage.getItem('token');
     if (!loggedInUser) {
-        window.location.href = '/auth/login.html';
+        window.location.href = '../../auth/login.html';
     }
 
     const profileData = await getProfile(name, true, true);
