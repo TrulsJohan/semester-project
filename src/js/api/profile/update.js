@@ -1,32 +1,29 @@
-import { API_KEY } from "../constants"
-import { API_AUCTION_PROFILE } from "../constants"
+import { API_AUCTION_PROFILE } from '../constants';
+import { loggedIn } from '../headers';
 
 export async function updateProfile() {
     event.preventDefault();
 
-    const bannerUrl = document.getElementById("bannerUrl").value
-    const avatarUrl = document.getElementById("avatarUrl").value
-    const profileBio = document.getElementById("profileBio").value
+    const bannerUrl = document.getElementById('bannerUrl').value;
+    const avatarUrl = document.getElementById('avatarUrl').value;
+    const profileBio = document.getElementById('profileBio').value;
 
     if (!profileBio || !bannerUrl || !avatarUrl) {
-        alert("Please fill in all the fields.");
+        alert('Please fill in all the fields.');
         return null;
     }
 
     const name = localStorage.getItem(`user`);
     if (!name) {
-        console.error("Could not fetch post. No user found.");
+        alert('Could not fetch post. No user found.');
         return;
     }
 
     try {
+        const header = await loggedIn();
         const response = await fetch(`${API_AUCTION_PROFILE}/${name}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                "X-Noroff-API-Key": API_KEY,
-            },
+            method: 'PUT',
+            headers: header,
             body: JSON.stringify({
                 bio: profileBio,
                 banner: { url: bannerUrl },
@@ -40,8 +37,7 @@ export async function updateProfile() {
 
         const data = await response.json();
         return data;
-
     } catch (error) {
-        console.error("Error fetching data:", error.message);
+        alert('Failed to fetch update: ' + error.message);
     }
 }
