@@ -1,5 +1,3 @@
-import { profile } from "console";
-import { register } from "module";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
@@ -7,7 +5,7 @@ export default defineConfig({
   appType: "mpa",
   base: "",
   build: {
-    target: "esnext",
+    target: ["esnext"],
     rollupOptions: {
       input: {
         main: resolve(__dirname, "./index.html"),
