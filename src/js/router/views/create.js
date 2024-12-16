@@ -14,7 +14,7 @@ let mediaCount = 1;
 function loggedIn() {
     const loggedInUser = localStorage.getItem('token');
     if (!loggedInUser) {
-        window.location.href = '../../auth/login.html';
+        window.location.href = '../../auth/login/';
     }
 }
 

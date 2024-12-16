@@ -21,7 +21,7 @@ async function renderProfile() {
     formContainer.classList.remove('hidden');
     const loggedInUser = localStorage.getItem('token');
     if (!loggedInUser) {
-        window.location.href = '../../auth/login.html';
+        window.location.href = '../../auth/login/';
     }
 
     const profileData = await getProfile(name, true, true);
@@ -134,7 +134,7 @@ async function renderProfilePosts(type) {
         postElement.addEventListener('click', (event) => {
             const postId = event.currentTarget.getAttribute('data-id');
             localStorage.setItem('selectedPostId', postId);
-            window.location.href = '/post/post.html';
+            window.location.href = '/post/post/';
         });
     });
 

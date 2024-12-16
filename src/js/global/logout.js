@@ -8,7 +8,7 @@ export function logoutButton() {
         });
     } else {
         loginButton.addEventListener('click', () => {
-            window.location.href = '../../../auth/login.html';
+            window.location.href = '../../../auth/login/';
         });
     }
 }

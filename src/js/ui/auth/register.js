@@ -15,7 +15,7 @@ export async function onRegister(event) {
         } else {
             alert('Registered successfully');
         }
-        window.location.href = '/auth/login.html';
+        window.location.href = '/auth/login/';
     } catch (error) {
         alert(`An error occurred during registration`);
     }

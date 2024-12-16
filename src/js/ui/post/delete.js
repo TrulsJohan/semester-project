@@ -4,7 +4,7 @@ export async function onDeletePost() {
     if (confirm('are you sure you want to delete this post?')) {
         const deletion = await deletePost();
         if (deletion) {
-            window.location.href = '/profile/profile.html';
+            window.location.href = '/profile/';
             alert('Deleted post');
         } else {
             alert('Failed to delete post.');
