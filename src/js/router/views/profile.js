@@ -22,17 +22,22 @@ async function renderProfile() {
     const loggedInUser = localStorage.getItem('token');
     if (!loggedInUser) {
         window.location.href = '../../auth/login/';
-    }
+    } else {
+        const profileData = await getProfile(name, true, true);
+        const data = profileData.data;
 
-    const profileData = await getProfile(name, true, true);
-    const data = profileData.data;
+        const avatarUrl =
+            data.avatar && data.avatar.url
+                ? data.avatar.url
+                : '/assets/images/cesar-rincon-XHVpWcr5grQ-unsplash.jpg';
+        const bannerUrl =
+            data.banner && data.banner.url
+                ? data.banner.url
+                : '/assets/images/luke-chesser-hQo6Uyo4nBg-unsplash.jpg';
+        const avatarAlt = data.avatar?.alt || 'Avatar Image';
+        const bannerAlt = data.banner?.alt || 'Banner Image';
 
-    const avatarUrl = data.avatar && data.avatar.url ? data.avatar.url : '/assets/images/cesar-rincon-XHVpWcr5grQ-unsplash.jpg';
-    const bannerUrl = data.banner && data.banner.url ? data.banner.url : '/assets/images/luke-chesser-hQo6Uyo4nBg-unsplash.jpg';
-    const avatarAlt = data.avatar?.alt || 'Avatar Image';
-    const bannerAlt = data.banner?.alt || 'Banner Image';
-
-    renderContainer.innerHTML = `
+        renderContainer.innerHTML = `
         <div class="flex flex-col gap-8 pb-8 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
             <div class="profile-header relative flex flex-col items-center bg-slate-50">
                 <img src="${bannerUrl}" alt="${bannerAlt}" class="profile-banner w-full h-[120px] object-cover bg-slate-500 rounded-t-lg">
@@ -50,9 +55,11 @@ async function renderProfile() {
         </div>
     `;
 
-    document.getElementById('bannerUrl').value = data.banner.url;
-    document.getElementById('avatarUrl').value = data.avatar.url;
-    document.getElementById('profileBio').value = data.bio;
+        document.getElementById('bannerUrl').value = data.banner.url;
+        document.getElementById('avatarUrl').value = data.avatar.url;
+        document.getElementById('profileBio').value = data.bio;
+
+    }
 }
 
 async function renderProfilePosts(type) {
