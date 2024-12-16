@@ -48,7 +48,6 @@
         <header>
             <nav
                 class="flex items-center justify-between w-full border-b border-slate-300 px-6 py-4 bg-white shadow-sm">
-                <!-- Hamburger Menu -->
                 <div
                     id="openMenu"
                     class="flex justify-center items-center bg-brand-300 rounded-full w-8 h-8 cursor-pointer lg:hidden">
@@ -102,8 +101,18 @@
             </nav>
         </header>
 
-        <main
-            id="postIdContainer"
-            class="p-6 bg-white border border-gray-200 rounded-lg shadow-lg max-w-5xl mx-auto mt-8"></main>
+        <main>
+            <div class="bg-brand-300 w-fit rounded-lg p-2 max-w-5xl mx-auto mt-8 text-brand-700 text-base font-semibold hover:underline">
+                <a href="/">
+                    <span class="flex flex-row px-3 gap-3 items-center justify-center text-slate-50">
+                        <img src="/assets/images/arrow-left.svg" alt="back"
+                            class="w-4 h-4">
+                            Back
+                    </span>
+                </a>
+            </div>
+            <div id="postIdContainer"
+            class="p-6 bg-white border border-gray-200 rounded-lg shadow-lg max-w-5xl mx-auto mt-8"></div>
+        </main>
     </body>
 </html>
