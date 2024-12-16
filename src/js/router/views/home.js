@@ -124,11 +124,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                 'hover:bg-brand-600',
                 'transition'
             );
-            const prevImage = document.createElement('img');
-            prevImage.src = './assets/images/arrow-left.svg';
-            prevImage.alt = 'Previous';
-            prevImage.classList.add('w-4', 'h-4');
-            prevButton.appendChild(prevImage);
             prevButton.appendChild(document.createTextNode('Previous'));
             prevButton.addEventListener('click', () =>
                 displayPaginatedPosts(page - 1, limit, searchQuery)
@@ -153,12 +148,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                 'hover:bg-brand-600',
                 'transition'
             );
-            const nextImage = document.createElement('img');
-            nextImage.src = './assets/images/arrow-right.svg';
-            nextImage.alt = 'Next';
-            nextImage.classList.add('w-4', 'h-4');
             nextButton.appendChild(document.createTextNode('Next'));
-            nextButton.appendChild(nextImage);
             nextButton.addEventListener('click', () =>
                 displayPaginatedPosts(page + 1, limit, searchQuery)
             );
