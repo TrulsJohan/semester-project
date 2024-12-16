@@ -8,6 +8,7 @@ const searchBar = document.getElementById('searchBar');
 const paginationContainer = document.getElementById('paginationContainer');
 const openMenu = document.getElementById('openMenu');
 const closeMenu = document.getElementById('closeMenu');
+const paginationButtons = document.getElementById('paginationButtons');
 let searchDebounceTimer;
 
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
@@ -93,6 +94,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             });
         });
 
+        paginationButtons.innerHTML = '';
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add(
             'flex',
@@ -103,13 +105,15 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             'gap-4',
             'mt-4'
         );
-        paginationContainer.appendChild(buttonContainer);
+        paginationButtons.appendChild(buttonContainer);
 
         if (!data.meta.isFirstPage) {
             const prevButton = document.createElement('button');
             prevButton.classList.add(
                 'flex',
                 'items-center',
+                'justify-center',
+                'w-36',
                 'gap-2',
                 'px-4',
                 'py-2',
@@ -137,6 +141,8 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             nextButton.classList.add(
                 'flex',
                 'items-center',
+                'justify-center',
+                'w-36',
                 'gap-2',
                 'px-4',
                 'py-2',
