@@ -82,6 +82,7 @@ async function renderProfilePosts(type) {
     if (!Array.isArray(posts) || posts.length === 0) {
         renderContainer.innerHTML = '';
         renderContainer.className = '';
+        alert('You dont have any listings/bids/wins');
         renderProfile();
         return;
     }
