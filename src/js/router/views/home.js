@@ -121,7 +121,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                 'transition'
             );
             const prevImage = document.createElement('img');
-            prevImage.src = '/assets/images/arrow-left.svg';
+            prevImage.src = '../assets/images/arrow-left.svg';
             prevImage.alt = 'Previous';
             prevImage.classList.add('w-4', 'h-4');
             prevButton.appendChild(prevImage);
@@ -148,7 +148,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                 'transition'
             );
             const nextImage = document.createElement('img');
-            nextImage.src = '/assets/images/arrow-right.svg';
+            nextImage.src = '../assets/images/arrow-right.svg';
             nextImage.alt = 'Next';
             nextImage.classList.add('w-4', 'h-4');
             nextButton.appendChild(document.createTextNode('Next'));
