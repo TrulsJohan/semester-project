@@ -35,11 +35,12 @@ export async function onCreatePost(event) {
 
     try {
         const response = await create(requestBody);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+        if (!response || response.error) {
+            throw new Error(response?.error || 'Failed to create post');
         }
+        alert('Post created successfully!');
+        window.location.href = '/';
     } catch (error) {
         alert('Failed to create post: ' + error.message);
     }
-    window.location.href = '/';
 }

@@ -9,12 +9,17 @@ export async function create(requestBody) {
             headers: header,
             body: JSON.stringify(requestBody),
         });
-        const data = await response.json();
-        if (!data) {
-            throw new Error(`Error: ${response.status}`);
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(
+                `Request failed with status ${response.status}: ${errorMessage}`
+            );
         }
-        return data;
+
+        return await response.json();
     } catch (error) {
         alert('Failed to fetch create: ' + error.message);
+        return { error: error.message }; // Pass error details back to caller
     }
 }

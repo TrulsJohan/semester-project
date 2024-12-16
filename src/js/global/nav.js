@@ -7,7 +7,6 @@ export async function navProfileImage() {
     try {
         const accessToken = localStorage.getItem('token');
         if (!accessToken) {
-            alert('No access token found');
             return;
         }
 
