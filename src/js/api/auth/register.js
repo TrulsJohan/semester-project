@@ -1,27 +1,19 @@
 import { API_AUTH_REGISTER } from '../constants.js';
 
-export async function register({ name, email, password }) {
+export async function register(requestBody) {
     try {
         const response = await fetch(API_AUTH_REGISTER, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name,
-                email,
-                password,
-            }),
+            body: JSON.stringify(requestBody),
         });
 
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        } else {
-            window.location.href = 'login.html';
-        }
-
         const data = await response.json();
+        if (!data) {
+            throw new Error(`Error: ${response.status}`);
+        }
         return data;
     } catch (error) {
-        console.error('Error during registration:', error);
-        throw error;
+        alert('Failed to fetch register: ' + error.message);
     }
 }

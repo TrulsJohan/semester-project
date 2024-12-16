@@ -1,4 +1,4 @@
-import { API_AUCTION_LISTINGS, API_KEY } from '../constants';
+import { API_AUCTION_LISTINGS } from '../constants';
 import { loggedIn } from '../headers';
 
 export async function create(requestBody) {
@@ -9,15 +9,12 @@ export async function create(requestBody) {
             headers: header,
             body: JSON.stringify(requestBody),
         });
-
-        if (!response.ok) {
+        const data = await response.json();
+        if (!data) {
             throw new Error(`Error: ${response.status}`);
         }
-
-        const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error during registration:', error);
-        throw error;
+        alert('Failed to fetch create: ' + error.message);
     }
 }

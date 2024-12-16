@@ -21,14 +21,12 @@ function loggedIn() {
 addMediaButton.addEventListener('click', () => {
     const mediaInputs = document.getElementById('mediaInputs');
 
-    // Media URL Label
     const mediaUrlLabel = document.createElement('label');
     mediaUrlLabel.setAttribute('for', `mediaUrl${mediaCount}`);
     mediaUrlLabel.textContent = 'Media URL';
     mediaUrlLabel.className = 'font-semibold text-lg text-gray-800';
     mediaInputs.appendChild(mediaUrlLabel);
 
-    // Media URL Input
     const mediaUrlInput = document.createElement('input');
     mediaUrlInput.setAttribute('type', 'url');
     mediaUrlInput.setAttribute('id', `mediaUrl${mediaCount}`);
@@ -39,21 +37,19 @@ addMediaButton.addEventListener('click', () => {
         'border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300';
     mediaInputs.appendChild(mediaUrlInput);
 
-    // Media Alt Text Label
     const mediaAltLabel = document.createElement('label');
     mediaAltLabel.setAttribute('for', `mediaAlt${mediaCount}`);
     mediaAltLabel.textContent = 'Media Alt';
-    mediaAltLabel.className = 'font-semibold text-lg text-gray-800'; // Matching the HTML
+    mediaAltLabel.className = 'font-semibold text-lg text-gray-800';
     mediaInputs.appendChild(mediaAltLabel);
 
-    // Media Alt Text Input
     const mediaAltInput = document.createElement('input');
     mediaAltInput.setAttribute('type', 'text');
     mediaAltInput.setAttribute('id', `mediaAlt${mediaCount}`);
     mediaAltInput.setAttribute('name', 'mediaAlt');
     mediaAltInput.setAttribute('placeholder', 'Description of the image');
     mediaAltInput.className =
-        'border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300'; // Matching the HTML
+        'border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300';
     mediaInputs.appendChild(mediaAltInput);
 
     mediaCount++;
@@ -62,12 +58,8 @@ addMediaButton.addEventListener('click', () => {
 removeMediaButton.addEventListener('click', () => {
     if (mediaCount > 1) {
         const mediaInputs = document.getElementById('mediaInputs');
-
-        // Remove the last mediaAlt input and its label
         mediaInputs.removeChild(mediaInputs.lastElementChild);
         mediaInputs.removeChild(mediaInputs.lastElementChild);
-
-        // Remove the last mediaUrl input and its label
         mediaInputs.removeChild(mediaInputs.lastElementChild);
         mediaInputs.removeChild(mediaInputs.lastElementChild);
 

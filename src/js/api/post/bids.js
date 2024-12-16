@@ -13,14 +13,12 @@ export async function placeBid(requestBody, selectedPostId) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Response Error Data:', errorData);
             throw new Error(errorData.message || `Error: ${response.status}`);
         }
 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error during placing a bid:', error.message);
-        throw error;
+        alert('Failed to fetch bid: ' + error.message);
     }
 }

@@ -2,6 +2,7 @@ import { getAllPosts } from '../../api/post/read';
 import { logoutButton } from '../../global/logout';
 import { menuToggle } from '../../global/menu';
 import { navProfileImage } from '../../global/nav';
+import { initializeCountdown } from '../../global/counter';
 
 const searchBar = document.getElementById('searchBar');
 const paginationContainer = document.getElementById('paginationContainer');
@@ -12,6 +13,10 @@ let searchDebounceTimer;
 async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
     try {
         const data = await getAllPosts(page, limit);
+        if (!data) {
+            alert(`Could not fetch data`);
+        }
+
         displayPaginatedPosts.currentPage = page;
         paginationContainer.innerHTML = '';
 
@@ -41,7 +46,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                 const bidsCount =
                     post._count && post._count.bids ? post._count.bids : 0;
 
-                // Determine the highest bid amount
                 let highestBid = 'No bids yet';
                 if (post.bids && post.bids.length > 0) {
                     highestBid = Math.max(
@@ -49,7 +53,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
                     );
                 }
 
-                // Structure for individual posts
                 return `
                     <div data-id="${post.id}" 
                          class="post flex flex-col w-full overflow-hidden gap-4 px-4 py-4 border border-slate-300 rounded-lg shadow-lg hover:shadow-2xl transition cursor-pointer">
@@ -78,31 +81,9 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             })
             .join('');
 
-        // Countdown logic for "Ends At"
         const countdownElements = document.querySelectorAll('.ends-at');
-        countdownElements.forEach((element) => {
-            const endsAt = new Date(element.dataset.endsAt);
-            const updateCountdown = () => {
-                const timeLeft = endsAt - new Date();
-                if (timeLeft <= 0) {
-                    element.textContent = 'Auction ended';
-                } else {
-                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor(
-                        (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                    );
-                    const minutes = Math.floor(
-                        (timeLeft % (1000 * 60 * 60)) / (1000 * 60)
-                    );
-                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                }
-            };
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        });
+        initializeCountdown(countdownElements);
 
-        // Adding click event listeners to each post card
         const postElements = paginationContainer.querySelectorAll('.post');
         postElements.forEach((card) => {
             card.addEventListener('click', () => {
@@ -112,7 +93,6 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             });
         });
 
-        // Pagination controls
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add(
             'flex',
@@ -179,7 +159,7 @@ async function displayPaginatedPosts(page = 1, limit = 10, searchQuery = '') {
             buttonContainer.appendChild(nextButton);
         }
     } catch (error) {
-        console.error('Error fetching or displaying posts:', error);
+        alert('Failed to display posts: ' + error.message);
     }
 }
 

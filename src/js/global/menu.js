@@ -1,7 +1,7 @@
 export async function menuToggle(action) {
     const menu = document.getElementById('menu');
     if (!menu) {
-        console.error('Menu element not found');
+        alert('Menu element not found');
         return;
     }
 
@@ -12,6 +12,6 @@ export async function menuToggle(action) {
         menu.classList.remove('flex');
         menu.classList.add('hidden');
     } else {
-        console.error("Invalid action for menuToggle: use 'open' or 'close'");
+        alert("Invalid action for menuToggle: use 'open' or 'close'");
     }
 }

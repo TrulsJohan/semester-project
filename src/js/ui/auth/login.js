@@ -5,9 +5,10 @@ export async function onLogin(event) {
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const requestBody = { email, password };
 
     try {
-        const response = await login({ email, password });
+        const response = await login(requestBody);
 
         if (response && response.data && response.data.accessToken) {
             window.location.href = '/';
@@ -15,7 +16,6 @@ export async function onLogin(event) {
             alert('Login failed');
         }
     } catch (error) {
-        console.error('Error during login:', error);
-        alert('An error occurred during login.');
+        alert('An error occurred during login');
     }
 }

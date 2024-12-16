@@ -15,7 +15,7 @@ export async function updateProfile() {
 
     const name = localStorage.getItem(`user`);
     if (!name) {
-        console.error('Could not fetch post. No user found.');
+        alert('Could not fetch post. No user found.');
         return;
     }
 
@@ -38,6 +38,6 @@ export async function updateProfile() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching data:', error.message);
+        alert('Failed to fetch update: ' + error.message);
     }
 }

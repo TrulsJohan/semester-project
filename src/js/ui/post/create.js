@@ -32,16 +32,14 @@ export async function onCreatePost(event) {
         media: media,
         endsAt: endsAt,
     };
+
     try {
-        const data = await create(requestBody);
-        if (!data) {
+        const response = await create(requestBody);
+        if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
-        } else {
-            console.log('successfully created a post');
         }
     } catch (error) {
-        console.error('Error during registration:', error);
-        throw error;
+        alert('Failed to create post: ' + error.message);
     }
     window.location.href = '/';
 }

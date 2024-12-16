@@ -18,6 +18,6 @@ export async function deletePost() {
 
         return response;
     } catch (error) {
-        console.error(`error updating post: `, error);
+        alert('Failed to fetch delete: ' + error.message);
     }
 }
